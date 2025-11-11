@@ -34,9 +34,9 @@ export const content = {
       hero: {
         title: "Bienvenue à L’atelier 105 !",
         subtitle:
-          "Bienvenue à L’Atelier 105, votre lieu d’activité physique à Cellans-Foulletourtes !",
+          "Bienvenue à L’Atelier 105, votre lieu d’activité physique à Cérans-Foulletourte !",
         subtitle_2:
-          "APA, Pilates, circuit-training et ateliers cuisine, je vous accueille dans un lieu chaleureux et dédié à votre santé.",
+          "APA, pilates, circuit-training et ateliers cuisine, je vous accueille dans un lieu chaleureux et dédié à votre santé.",
         cta: "Voir les activités",
         img: "/img-hero.svg",
       },
@@ -59,7 +59,7 @@ export const content = {
         ],
       },
       apa: {
-        title: "L'activité Physique Adaptée (APA)",
+        title: "L'Activité Physique Adaptée (APA)",
         subtitle: "Activité principale",
         description:
           "À L'Atelier 105, notre activité principale est l'APA. Découvrez-en plus sur mon accompagnement.",
@@ -101,7 +101,7 @@ export const content = {
           {
             title: "Pilates",
             description:
-              "Le Pilates est une méthode douce d'exercices physiques qui renforce les muscles profonds, améliore la posture, l'équilibre, et la flexibilité, tout en favorisant la connexion entre le corps et l'esprit.",
+              "Le pilates est une méthode douce d'exercices physiques qui renforce les muscles profonds, améliore la posture, l'équilibre, et la flexibilité, tout en favorisant la connexion entre le corps et l'esprit.",
             description_2:
               "Que vous soyez débutant(e)s ou plus avancé(e)s, je vous propose chaque semaine plusieurs créneaux dédiés à cette méthode.",
             img: "/img_pilates.png",
