@@ -36,7 +36,7 @@ export const content = {
         subtitle:
           "Bienvenue à L’Atelier 105, votre lieu d’activité physique à Cérans-Foulletourte !",
         subtitle_2:
-          "APA, pilates, circuit-training et ateliers cuisine, je vous accueille dans un lieu chaleureux et dédié à votre santé.",
+          "APA, pilates, circuit-training cardio mix, activité pour les enfants et ateliers cuisine, je vous accueille dans un lieu chaleureux et dédié à votre santé.",
         cta: "Voir les activités",
         img: "/img-hero.svg",
       },
