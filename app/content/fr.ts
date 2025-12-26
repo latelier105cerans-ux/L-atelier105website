@@ -56,6 +56,10 @@ export const content = {
             description:
               "📣 Prochain atelier cuisine 🥗 samedi 22 février 2025. Contactez-moi vite pour réserver votre place !",
           },
+          {
+            description:
+              "📣 Joyeux noël 🥗 samedi 22 février 2025. Contactez-moi vite pour réserver votre place !",
+          },
         ],
       },
       apa: {
