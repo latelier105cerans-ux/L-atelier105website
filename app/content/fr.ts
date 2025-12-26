@@ -243,6 +243,15 @@ export const content = {
             ],
           },
           {
+            title: "Cardio Mix",
+            price: "200€ par an",
+            description:
+              "step, cardio boxe, cardio dance",
+            schedule: [
+              "Vendredi de 18h30 à 19h30",
+            ],
+          },
+          {
             title: "Circuit-training",
             price: "200€ par an",
             description:
