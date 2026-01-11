@@ -78,7 +78,9 @@ export const content = {
             icon: "HandHeart",
             title: "Bien-être et prévention",
             description:
-              "L'APA aide à prévenir et soulager les douleurs, améliorer la mobilité et renforcer l'autonomie au quotidien.",
+              "Améliorer la condition physique (force, équilibre, endurance, souplesse).",
+              "Prévenir et gérer les maladies chroniques (diabète, maladies cardiovasculaires, cancer, etc.).",
+              "Réduire la douleur et améliorer la mobilité (arthrose, lombalgies, troubles neurologiques).",
           },
           {
             icon: "HeartHandshake",
