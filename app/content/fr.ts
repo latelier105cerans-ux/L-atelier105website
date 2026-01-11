@@ -79,8 +79,6 @@ export const content = {
             title: "Bien-être et prévention",
             description:
               "Améliorer la condition physique (force, équilibre, endurance, souplesse).",
-              "Prévenir et gérer les maladies chroniques (diabète, maladies cardiovasculaires, cancer, etc.).",
-              "Réduire la douleur et améliorer la mobilité (arthrose, lombalgies, troubles neurologiques).",
           },
           {
             icon: "HeartHandshake",
