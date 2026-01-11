@@ -66,13 +66,14 @@ export const content = {
         title: "L'Activité Physique Adaptée (APA)",
         subtitle: "Activité principale",
         description:
-          "À L'Atelier 105, notre activité principale est l'APA. Découvrez-en plus sur mon accompagnement.",
+          "L’Atelier 105 est labellisé Maison Sport-Santé par le Ministère des Sports et de la Santé. Cela garantit un accompagnement sécurisé, personnalisé et adapté à votre état de santé et vos objectifs !",
         features: [
           {
             icon: "UserRound",
             title: "Mouvement sur-mesure",
             description:
-              "L'Activité Physique Adaptée est conçue pour s'adapter aux capacités et aux besoins de chacun, quels que soient l'âge ou la condition physique.",
+              "Avant de débuter tout programme d’activité physique adaptée, nous réalisons un bilan complet. Ce temps d’échange permet d’évaluer vos capacités, comprendre vos besoins, votre histoire de santé et vos objectifs.
+Grâce à ce bilan, nous construisons ensemble un programme sur mesure, sécurisé et adapté pour vous !",
           },
           {
             icon: "HandHeart",
