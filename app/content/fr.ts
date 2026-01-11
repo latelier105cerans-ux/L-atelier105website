@@ -92,8 +92,8 @@ export const content = {
             description:
               "En petit groupe et avec bienveillance, je vous accompagne pour prendre soin de votre santé en toute sécurité.",
           },
-           {
-            icon: "Ordonnance",
+          {
+            icon: "Ticket",
             title: "Prescription",
             description:
               " Envie de vous sentir mieux dans votre corps ? Rejoignez nos séances d’APA, conçues pour tous, quel que soit votre âge ou votre condition physique ! Une prescription médicale est nécessaire pour participer. Téléchargez le modèle officiel ici.",
