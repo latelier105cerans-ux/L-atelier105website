@@ -90,7 +90,7 @@ export const content = {
             icon: "Ticket",
             title: "Votre séance",
             description:
-              "En petit groupe (5 personnes maximum) et avec bienveillance, je vous accompagne pour prendre soin de votre santé en toute sécurité.",
+              "En petit groupe et avec bienveillance, je vous accompagne pour prendre soin de votre santé en toute sécurité.",
           },
         ],
         cta: "Voir les tarifs et le planning",
