@@ -34,7 +34,8 @@ export const content = {
       hero: {
         title: "Bienvenue à L’atelier 105, La santé par le mouvement",
         subtitle:
-          "Votre centre d’Activité Physique adaptée labellisé Maison Sport-Santé ! Bouger mieux, vivre mieux. Pour tous les âges et tous les niveaux",
+          "Votre Maison Sport-Santé à Cérans-Foulletourte ! 
+          Bouger mieux, vivre mieux. Pour tous les âges et tous les niveaux",
         subtitle_2:
           "Activité Physique Adaptée (APA), Pilates, Circuit-training, Cardio mix, Activité physique pour enfants et Ateliers cuisine, je vous accueille dans un lieu chaleureux et dédié à votre santé.",
         cta: "Voir les activités",
