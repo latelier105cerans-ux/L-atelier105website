@@ -36,7 +36,7 @@ export const content = {
         subtitle:
           "Votre centre d’Activité Physique adaptée labellisé Maison Sport-Santé ! Bouger mieux, vivre mieux. Pour tous les âges et tous les niveaux",
         subtitle_2:
-          "Activité Physique Adaptée (APA), Pilates, Circuit-training, Cardio mix, Activité physique pour enfants et Ateliers cuisine, je vous accueille dans un lieu chaleureux et professionnel, pensé pour vous aider à bouger en toute sécurité et à prendre soin de votre santé au quotidien.",
+          "Activité Physique Adaptée (APA), Pilates, Circuit-training, Cardio mix, Activité physique pour enfants et Ateliers cuisine, je vous accueille dans un lieu chaleureux et dédié à votre santé.",
         cta: "Voir les activités",
         img: "/img-hero.svg",
       },
