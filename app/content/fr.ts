@@ -78,7 +78,7 @@ export const content = {
             icon: "HandHeart",
             title: "Bien-être et prévention",
             description:
-              "Améliorer la condition physique (force, équilibre, endurance, souplesse).",
+              "✔ Améliorer la condition physique (force, équilibre, endurance, souplesse).✔ Prévenir et gérer les maladies chroniques (diabète, maladies cardiovasculaires, cancer, etc.).✔ Réduire la douleur et améliorer la mobilité (arthrose, lombalgies, troubles neurologiques).✔ Favoriser l’autonomie et l’inclusion des personnes en situation de handicap.✔ Renforcer le bien-être mental et lutter contre le stress, l’anxiété et la dépression.",
           },
           {
             icon: "HeartHandshake",
