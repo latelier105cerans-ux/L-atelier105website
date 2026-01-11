@@ -72,8 +72,7 @@ export const content = {
             icon: "UserRound",
             title: "Mouvement sur-mesure",
             description:
-              "Avant de débuter tout programme d’activité physique adaptée, nous réalisons un bilan complet. Ce temps d’échange permet d’évaluer vos capacités, comprendre vos besoins, votre histoire de santé et vos objectifs.
-Grâce à ce bilan, nous construisons ensemble un programme sur mesure, sécurisé et adapté pour vous !",
+              "Avant de débuter tout programme d’activité physique adaptée, nous réalisons un bilan complet. Ce temps d’échange permet d’évaluer vos capacités, comprendre vos besoins, votre histoire de santé et vos objectifs. Grâce à ce bilan, nous construisons ensemble un programme sur mesure, sécurisé et adapté pour vous !",
           },
           {
             icon: "HandHeart",
