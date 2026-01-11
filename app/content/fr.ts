@@ -84,7 +84,7 @@ export const content = {
             icon: "HeartHandshake",
             title: "Sport & pathologies",
             description:
-              "L'APA est un allié clé dans la prise en charge des maladies chroniques, la rééducation et la reprise d'une activité après un accident ou une opération.",
+              "🔹 Personnes atteintes de maladies chroniques (diabète, obésité, cancer, maladies cardiaques…).🔹 Personnes en situation de handicap (moteur, sensoriel, mental…).🔹 Seniors souhaitant préserver leur autonomie et prévenir les chutes.🔹 Personnes en rééducation après une blessure ou une opération. 🔹 Femmes enceintes et post partum 🔹 Personnes en bonne santé souhaitant reprendre une activité physique ",
           },
           {
             icon: "Ticket",
