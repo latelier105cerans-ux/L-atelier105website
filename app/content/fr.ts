@@ -34,8 +34,7 @@ export const content = {
       hero: {
         title: "Bienvenue à L’atelier 105, La santé par le mouvement",
         subtitle:
-          "Votre centre d’Activité Physique adaptée labellisé Maison Sport-Santé 
-          Bouger mieux, vivre mieux. Pour tous les âges et tous les niveaux",
+          "Votre centre d’Activité Physique adaptée labellisé Maison Sport-Santé ! Bouger mieux, vivre mieux. Pour tous les âges et tous les niveaux",
         subtitle_2:
           "Activité Physique Adaptée (APA), Pilates, Circuit-training, Cardio mix, Activité physique pour enfants et Ateliers cuisine, je vous accueille dans un lieu chaleureux et professionnel, pensé pour vous aider à bouger en toute sécurité et à prendre soin de votre santé au quotidien.",
         cta: "Voir les activités",
