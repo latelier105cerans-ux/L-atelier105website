@@ -15,11 +15,25 @@ Vous pouvez changer vous-même tous les textes, prix, horaires, actualités et p
    - `accueil` : page d'accueil (bienvenue, actualités, APA, activités, à propos)
    - `tarifs` : tarifs et planning
    - `contact` : page contact
-   - `site` : menu, adresse, liens Facebook / Instagram
+   - `menu-et-pied-de-page` : liens du menu, bouton vert, logo, adresse, téléphone, email, Facebook / Instagram
 2. Modifiez les champs. **L'aperçu du site se met à jour en direct.**
 3. Pour ajouter une actualité, un créneau ou une formule, utilisez le bouton **+** sous la liste.
 4. Dans les textes longs, un **retour à la ligne** (touche Entrée) s'affiche aussi sur le site :
    pratique pour faire des listes (une ligne par « ✔ »).
+
+## Le menu
+
+Dans `menu-et-pied-de-page` → *Menu* → *Liens du menu* :
+- **ajouter** un lien avec **+**, le **supprimer**, ou changer l'**ordre** ;
+- **Lien** : `/tarifs` ou `/contact` pour une page, `/#lapa` pour une section de l'accueil
+  (`/#lespace`, `/#lapa`, `/#autres-activites`, `/#moi`), ou une adresse complète `https://…` pour un autre site.
+
+Le menu de l'en-tête (ordinateur et mobile) et celui du pied de page se mettent à jour ensemble.
+
+## Masquer sans supprimer
+
+Les sections, activités, formules, actualités et liens du menu ont un interrupteur **« Masquer sur le site »**.
+Pratique pour retirer quelque chose temporairement (ex. une activité en pause) et le remettre plus tard.
 
 ## Actualités avec date de fin
 

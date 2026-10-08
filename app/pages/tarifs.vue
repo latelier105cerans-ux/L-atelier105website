@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- APA -->
-    <section class="bg-gray-25 py-12 desktopview:py-20">
+    <section
+      v-if="!content.pages.tarifs.apa.hidden"
+      class="bg-gray-25 py-12 desktopview:py-20"
+    >
       <div class="container mx-auto px-4">
         <!-- Title -->
         <div class="text-center mb-12 desktopview:mb-16">
@@ -20,7 +23,7 @@
           class="flex flex-col gap-6 mb-12 desktopview:mb-16 desktopview:flex-row desktopview:gap-8"
         >
           <div
-            v-for="(plan, index) in content.pages.tarifs.apa.pricing"
+            v-for="(plan, index) in visiblePricing"
             :key="index"
             class="bg-secondary-earth-50 rounded-2xl p-8 flex flex-col"
           >
@@ -64,6 +67,7 @@
 
     <!-- Autre Activites -->
     <section
+      v-if="!content.pages.tarifs.autres_activites.hidden"
       id="autres-activites"
       class="bg-primary-green-50 py-12 desktopview:py-20 scroll-mt-20"
     >
@@ -85,8 +89,7 @@
           class="flex flex-col gap-6 mb-12 desktopview:mb-16 desktopview:flex-row desktopview:gap-8"
         >
           <div
-            v-for="(activity, index) in content.pages.tarifs.autres_activites
-              .activities"
+            v-for="(activity, index) in visibleActivities"
             :key="index"
             class="bg-primary-green-100 rounded-2xl p-8 flex flex-col flex-1"
           >
@@ -126,7 +129,10 @@
       </div>
     </section>
     <!-- Planning -->
-    <section class="bg-gray-25 py-12 desktopview:py-20">
+    <section
+      v-if="!content.pages.tarifs.planning.hidden"
+      class="bg-gray-25 py-12 desktopview:py-20"
+    >
       <div class="container mx-auto px-4">
         <!-- Title -->
         <div class="text-left mb-12 desktopview:mb-16">
@@ -163,6 +169,12 @@
 import { Check, ArrowDownCircle } from "lucide-vue-next";
 
 const content = await useContent();
+const visiblePricing = computed(() =>
+  content.value.pages.tarifs.apa.pricing.filter((plan) => !plan.hidden)
+);
+const visibleActivities = computed(() =>
+  content.value.pages.tarifs.autres_activites.activities.filter((a) => !a.hidden)
+);
 
 // Icon mapping
 const iconMap: Record<string, any> = {

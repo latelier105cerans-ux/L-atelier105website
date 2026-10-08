@@ -19,6 +19,10 @@ const media = (label: string, description = 'JPG, PNG ou WEBP, idéalement envir
 const group = <T extends z.ZodRawShape>(label: string, shape: T) => edit(z.object(shape), { label })
 const list = <T extends z.ZodType>(label: string, item: T, description?: string) =>
   edit(z.array(item), { label, description })
+// Optional, so existing entries without the field stay visible
+const hidden = (what = 'cet élément') =>
+  edit(z.boolean(), { label: 'Masquer sur le site', description: `Activez pour cacher ${what} sans le supprimer` }).optional()
+const href = () => text('Lien', 'Ex. /tarifs, /contact, /#lapa (section de l\'accueil) ou https://… (autre site)')
 
 // Icons available in the pages' iconMap (lucide-vue-next)
 const featureIcon = edit(
@@ -42,7 +46,7 @@ export default defineContentConfig({
   collections: {
     site: defineCollection({
       type: 'data',
-      source: 'site.yml',
+      source: 'menu-et-pied-de-page.yml',
       schema: z.object({
         site: group('Site', {
           name: text('Nom du site'),
@@ -50,12 +54,15 @@ export default defineContentConfig({
           keywords: text('Mots-clés', 'Séparés par des virgules'),
         }),
         navigation: group('Menu', {
-          l_espace: text('Menu : L\'Espace'),
-          apa: text('Menu : L\'APA'),
-          autres_activités: text('Menu : Autres activités'),
-          tarifs: text('Menu : Tarifs'),
-          moi: text('Menu : À propos'),
-          contact: text('Bouton : Contact'),
+          links: list('Liens du menu', z.object({
+            label: text('Texte'),
+            href: href(),
+            hidden: hidden('ce lien'),
+          }), 'Affichés dans l\'en-tête (ordinateur et mobile) et dans le pied de page, dans cet ordre'),
+          contact: group('Bouton vert (à droite du menu et dans le pied de page)', {
+            label: text('Texte'),
+            href: href(),
+          }),
         }),
         header: group('En-tête', {
           logo: media('Logo (en-tête)', 'SVG ou PNG'),
@@ -65,6 +72,8 @@ export default defineContentConfig({
           copyright: text('Copyright'),
           address: text('Adresse'),
           zip_city: text('Code postal et ville'),
+          phone: text('Téléphone', 'Facultatif, cliquable sur mobile. Laisser vide pour ne pas l\'afficher').optional(),
+          email: text('Email', 'Facultatif. Laisser vide pour ne pas l\'afficher').optional(),
           social: group('Réseaux sociaux', {
             facebook: text('Lien Facebook', 'Adresse complète, commençant par https://'),
             instagram: text('Lien Instagram', 'Adresse complète, commençant par https://'),
@@ -91,6 +100,7 @@ export default defineContentConfig({
           subtitle: text('Sur-titre', 'Petit texte coloré au-dessus du titre'),
           items: list('Actualités', z.object({
             description: longText('Actualité'),
+            hidden: hidden('cette actualité'),
             // Studio's date picker (input 'date' isn't in EditorOptions' type but Studio supports it);
             // stays a plain string (YYYY-MM-DD or empty) so a cleared date never fails validation
             until: edit(z.string(), {
@@ -101,6 +111,7 @@ export default defineContentConfig({
           }), 'Elles défilent automatiquement toutes les 5 secondes'),
         }),
         apa: group('L\'APA', {
+          hidden: hidden('toute cette section'),
           ...sectionHeader,
           features: list('Points clés', z.object({
             icon: featureIcon,
@@ -111,8 +122,10 @@ export default defineContentConfig({
           img: media('Image'),
         }),
         autres_activites: group('Autres activités', {
+          hidden: hidden('toute cette section'),
           ...sectionHeader,
           activities: list('Activités', z.object({
+            hidden: hidden('cette activité'),
             title: text('Nom de l\'activité'),
             description: longText('Description'),
             description_2: longText('Description (suite)', 'Facultatif, laisser vide si inutile'),
@@ -126,6 +139,7 @@ export default defineContentConfig({
           })),
         }),
         moi: group('À propos de moi', {
+          hidden: hidden('toute cette section'),
           title: text('Titre'),
           subtitle: text('Sur-titre', 'Petit texte coloré au-dessus du titre'),
           name: text('Prénom', 'Écrit en police manuscrite'),
@@ -144,6 +158,7 @@ export default defineContentConfig({
       schema: z.object({
         ...seo,
         planning: group('Planning', {
+          hidden: hidden('toute cette section'),
           ...sectionHeader,
           download_link: group('Téléchargement', {
             href: media('Fichier du planning à télécharger', 'Choisissez la même image que « Image du planning »'),
@@ -153,8 +168,10 @@ export default defineContentConfig({
           img: media('Image du planning'),
         }),
         apa: group('Tarifs APA', {
+          hidden: hidden('toute cette section'),
           ...sectionHeader,
           pricing: list('Formules', z.object({
+            hidden: hidden('cette formule'),
             title: text('Formule'),
             prices: list('Prix', z.object({
               amount: text('Prix', 'Ex. 60€/mois'),
@@ -164,8 +181,10 @@ export default defineContentConfig({
           disclaimer: longText('Mention en bas'),
         }),
         autres_activites: group('Tarifs autres activités', {
+          hidden: hidden('toute cette section'),
           ...sectionHeader,
           activities: list('Activités', z.object({
+            hidden: hidden('cette activité'),
             title: text('Activité'),
             price: text('Prix'),
             description: longText('Description'),

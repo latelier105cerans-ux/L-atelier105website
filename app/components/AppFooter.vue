@@ -5,12 +5,12 @@
       <div class="desktopview:hidden flex flex-col gap-8">
         <!-- 1. Contact Button -->
         <div>
-          <NuxtLink
-            to="/contact"
+          <AppNavLink
+            :href="content.navigation.contact.href"
             class="flex justify-center items-center bg-gray-25 h-11 px-6 rounded-full text-primary-green-400 hover:bg-gray-100 transition-colors"
           >
-            {{ content.navigation.contact }}
-          </NuxtLink>
+            {{ content.navigation.contact.label }}
+          </AppNavLink>
         </div>
 
         <!-- 2. Logo - Left aligned -->
@@ -27,46 +27,38 @@
           <p class="font-normal text-base">
             {{ content.footer.address }}<br />
             {{ content.footer.zip_city }}
+            <template v-if="content.footer.phone">
+              <br />
+              <a :href="phoneHref" class="hover:text-white transition-colors">{{
+                content.footer.phone
+              }}</a>
+            </template>
+            <template v-if="content.footer.email">
+              <br />
+              <a
+                :href="`mailto:${content.footer.email}`"
+                class="hover:text-white transition-colors"
+                >{{ content.footer.email }}</a
+              >
+            </template>
           </p>
         </div>
 
         <!-- 4. Navigation - 2 columns -->
         <div class="grid grid-cols-2 gap-x-4 gap-y-2">
-          <!-- Left column - 3 items -->
-          <div class="space-y-2">
-            <a
-              href="/#lespace"
+          <div
+            v-for="(column, columnIndex) in mobileColumns"
+            :key="columnIndex"
+            class="space-y-2"
+          >
+            <AppNavLink
+              v-for="(link, index) in column"
+              :key="index"
+              :href="link.href"
               class="block hover:text-white transition-colors font-semibold text-base"
             >
-              {{ content.navigation.l_espace }}
-            </a>
-            <a
-              href="/#lapa"
-              class="block hover:text-white transition-colors font-semibold text-base"
-            >
-              {{ content.navigation.apa }}
-            </a>
-            <a
-              href="/#autres-activites"
-              class="block hover:text-white transition-colors font-semibold text-base"
-            >
-              {{ content.navigation.autres_activités }}
-            </a>
-          </div>
-          <!-- Right column - 2 items -->
-          <div class="space-y-2">
-            <NuxtLink
-              to="/tarifs"
-              class="block hover:text-white transition-colors font-semibold text-base"
-            >
-              {{ content.navigation.tarifs }}
-            </NuxtLink>
-            <a
-              href="/#moi"
-              class="block hover:text-white transition-colors font-semibold text-base"
-            >
-              {{ content.navigation.moi }}
-            </a>
+              {{ link.label }}
+            </AppNavLink>
           </div>
         </div>
       </div>
@@ -80,12 +72,12 @@
             alt="Atelier 105"
             class="h-11 w-auto"
           />
-          <NuxtLink
-            to="/contact"
+          <AppNavLink
+            :href="content.navigation.contact.href"
             class="flex justify-center items-center bg-gray-25 h-11 px-6 rounded-full text-primary-green-400 hover:bg-gray-100 transition-colors"
           >
-            {{ content.navigation.contact }}
-          </NuxtLink>
+            {{ content.navigation.contact.label }}
+          </AppNavLink>
         </div>
 
         <!-- Address below logo -->
@@ -93,41 +85,33 @@
           <p class="font-normal text-base">
             {{ content.footer.address }}<br />
             {{ content.footer.zip_city }}
+            <template v-if="content.footer.phone">
+              <br />
+              <a :href="phoneHref" class="hover:text-white transition-colors">{{
+                content.footer.phone
+              }}</a>
+            </template>
+            <template v-if="content.footer.email">
+              <br />
+              <a
+                :href="`mailto:${content.footer.email}`"
+                class="hover:text-white transition-colors"
+                >{{ content.footer.email }}</a
+              >
+            </template>
           </p>
         </div>
 
         <!-- Navigation - horizontal with gap-8 -->
-        <nav class="flex gap-8 mb-8">
-          <a
-            href="/#lespace"
+        <nav class="flex flex-wrap gap-x-8 gap-y-2 mb-8">
+          <AppNavLink
+            v-for="(link, index) in links"
+            :key="index"
+            :href="link.href"
             class="hover:text-white transition-colors font-semibold text-base"
           >
-            {{ content.navigation.l_espace }}
-          </a>
-          <a
-            href="/#lapa"
-            class="hover:text-white transition-colors font-semibold text-base"
-          >
-            {{ content.navigation.apa }}
-          </a>
-          <a
-            href="/#autres-activites"
-            class="hover:text-white transition-colors font-semibold text-base"
-          >
-            {{ content.navigation.autres_activités }}
-          </a>
-          <NuxtLink
-            to="/tarifs"
-            class="hover:text-white transition-colors font-semibold text-base"
-          >
-            {{ content.navigation.tarifs }}
-          </NuxtLink>
-          <a
-            href="/#moi"
-            class="hover:text-white transition-colors font-semibold text-base"
-          >
-            {{ content.navigation.moi }}
-          </a>
+            {{ link.label }}
+          </AppNavLink>
         </nav>
       </div>
 
@@ -175,4 +159,15 @@
 
 <script setup lang="ts">
 const content = await useContent();
+const links = computed(() =>
+  content.value.navigation.links.filter((link) => !link.hidden)
+);
+// Mobile: links split in two columns
+const mobileColumns = computed(() => {
+  const half = Math.ceil(links.value.length / 2);
+  return [links.value.slice(0, half), links.value.slice(half)];
+});
+const phoneHref = computed(
+  () => `tel:${(content.value.footer.phone ?? "").replace(/[^\d+]/g, "")}`
+);
 </script>

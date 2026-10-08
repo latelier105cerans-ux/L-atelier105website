@@ -44,48 +44,26 @@
         <div
           class="hidden desktopview:flex items-center flex-1 justify-center gap-8"
         >
-          <a
-            href="/#lespace"
-            class="text-gray-700 hover:text-gray-900 transition-colors"
-          >
-            {{ content.navigation.l_espace }}
-          </a>
-          <a
-            href="/#lapa"
-            class="text-gray-700 hover:text-gray-900 transition-colors"
-          >
-            {{ content.navigation.apa }}
-          </a>
-          <a
-            href="/#autres-activites"
-            class="text-gray-700 hover:text-gray-900 transition-colors"
-          >
-            {{ content.navigation.autres_activités }}
-          </a>
-          <NuxtLink
-            to="/tarifs"
+          <AppNavLink
+            v-for="(link, index) in links"
+            :key="index"
+            :href="link.href"
             class="text-gray-700 hover:text-gray-900 transition-colors"
             active-class="text-gray-900 font-semibold"
           >
-            {{ content.navigation.tarifs }}
-          </NuxtLink>
-          <a
-            href="/#moi"
-            class="text-gray-700 hover:text-gray-900 transition-colors"
-          >
-            {{ content.navigation.moi }}
-          </a>
+            {{ link.label }}
+          </AppNavLink>
         </div>
 
         <!-- Contact Button - Far right -->
         <div class="hidden desktopview:block">
-          <NuxtLink
-            to="/contact"
+          <AppNavLink
+            :href="content.navigation.contact.href"
             class="flex justify-center items-center bg-primary-green-400 h-11 px-6 rounded-full text-gray-25 hover:bg-primary-green-300 transition-colors"
             active-class="ring-2 ring-primary-green-400 ring-offset-2"
           >
-            {{ content.navigation.contact }}
-          </NuxtLink>
+            {{ content.navigation.contact.label }}
+          </AppNavLink>
         </div>
       </div>
 
@@ -100,52 +78,26 @@
       >
         <div v-if="isMenuOpen" class="desktopview:hidden mt-4">
           <div class="flex flex-col gap-4">
-            <a
-              href="/#lespace"
-              @click="closeMenu"
-              class="text-gray-700 hover:text-gray-900 transition-colors py-2"
-            >
-              {{ content.navigation.l_espace }}
-            </a>
-            <a
-              href="/#lapa"
-              @click="closeMenu"
-              class="text-gray-700 hover:text-gray-900 transition-colors py-2"
-            >
-              {{ content.navigation.apa }}
-            </a>
-            <a
-              href="/#autres-activites"
-              @click="closeMenu"
-              class="text-gray-700 hover:text-gray-900 transition-colors py-2"
-            >
-              {{ content.navigation.autres_activités }}
-            </a>
-            <NuxtLink
-              to="/tarifs"
+            <AppNavLink
+              v-for="(link, index) in links"
+              :key="index"
+              :href="link.href"
               @click="closeMenu"
               class="text-gray-700 hover:text-gray-900 transition-colors py-2"
               active-class="text-gray-900 font-semibold"
             >
-              {{ content.navigation.tarifs }}
-            </NuxtLink>
-            <a
-              href="/#moi"
-              @click="closeMenu"
-              class="text-gray-700 hover:text-gray-900 transition-colors py-2"
-            >
-              {{ content.navigation.moi }}
-            </a>
+              {{ link.label }}
+            </AppNavLink>
             <!-- Separator -->
             <div class="h-px bg-gray-200 -mx-4"></div>
-            <NuxtLink
-              to="/contact"
+            <AppNavLink
+              :href="content.navigation.contact.href"
               @click="closeMenu"
               class="flex justify-center items-center bg-primary-green-400 h-11 px-6 rounded-full text-gray-25 hover:bg-primary-green-300 transition-colors"
               active-class="ring-2 ring-primary-green-400 ring-offset-2"
             >
-              {{ content.navigation.contact }}
-            </NuxtLink>
+              {{ content.navigation.contact.label }}
+            </AppNavLink>
           </div>
         </div>
       </Transition>
@@ -155,6 +107,9 @@
 
 <script setup lang="ts">
 const content = await useContent();
+const links = computed(() =>
+  content.value.navigation.links.filter((link) => !link.hidden)
+);
 const isMenuOpen = ref(false);
 
 const toggleMenu = () => {

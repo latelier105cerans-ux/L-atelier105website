@@ -56,6 +56,7 @@
 interface NewsItem {
   readonly description: string;
   readonly until?: string; // YYYY-MM-DD, last day the item is shown
+  readonly hidden?: boolean;
 }
 
 interface Props {
@@ -71,10 +72,12 @@ const props = withDefaults(defineProps<Props>(), {
   autoPlayInterval: 5000,
 });
 
-// Hide news whose "until" date is past (compared in French time, YYYY-MM-DD strings)
+// Hide news turned off in Studio or whose "until" date is past (compared in French time, YYYY-MM-DD strings)
 const today = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Paris" });
 const visibleItems = computed(() =>
-  props.items.filter((item) => !item.until || item.until >= today)
+  props.items.filter(
+    (item) => !item.hidden && (!item.until || item.until >= today)
+  )
 );
 
 const currentSlide = ref(0);

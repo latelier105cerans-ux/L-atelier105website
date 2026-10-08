@@ -3,19 +3,29 @@ site:
   description: Atelier 105 - Votre atelier de création
   keywords: atelier, création, artisanat, france
 navigation:
-  l_espace: L'Espace
-  apa: L'APA
-  autres_activités: Les autres activités
-  tarifs: Tarifs & Planning
-  moi: À propos de moi
-  contact: Me Contacter
+  links:
+    - label: L'Espace
+      href: /#lespace
+    - label: L'APA
+      href: /#lapa
+    - label: Les autres activités
+      href: /#autres-activites
+    - label: Tarifs & Planning
+      href: /tarifs
+    - label: À propos de moi
+      href: /#moi
+  contact:
+    label: Me Contacter
+    href: /contact
 header:
   logo: /logo-atelier-105.svg
 footer:
   logo: /logo-atelier-105-earth.svg
-  copyright: © 2024 Atelier 105
   address: 105 Rue nationale,
   zip_city: 72330 Cérans-Foulletourte
+  phone: 07 77 31 70 94
+  email: ""
+  copyright: © 2024 Atelier 105
   social:
     facebook: https://www.facebook.com/p/Latelier-105-61551994084555/?locale=fr_FR
     instagram: https://www.instagram.com/latelier_105/

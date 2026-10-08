@@ -72,6 +72,7 @@
 
     <!-- Section 2: L'APA -->
     <section
+      v-if="!content.pages.accueil.apa.hidden"
       id="lapa"
       class="py-12 desktopview:py-20 bg-secondary-earth-50 scroll-mt-20"
     >
@@ -216,6 +217,7 @@
 
     <!-- Section 3: Autres Activités -->
     <section
+      v-if="!content.pages.accueil.autres_activites.hidden"
       id="autres-activites"
       class="py-12 desktopview:py-20 scroll-mt-20 bg-gray-25"
     >
@@ -237,8 +239,7 @@
           <!-- Mobile Layout -->
           <div class="desktopview:hidden flex flex-col gap-12">
             <div
-              v-for="activities in content.pages.accueil.autres_activites
-                .activities"
+              v-for="activities in visibleActivities"
               :key="activities.title"
               class="flex flex-col gap-6"
             >
@@ -280,8 +281,7 @@
           <!-- Desktop Layout -->
           <div class="hidden desktopview:flex flex-col gap-20">
             <div
-              v-for="(activities, index) in content.pages.accueil
-                .autres_activites.activities"
+              v-for="(activities, index) in visibleActivities"
               :key="activities.title"
               class="grid grid-cols-2 gap-12 items-center"
               :class="index % 2 === 0 ? '' : 'direction-rtl'"
@@ -336,6 +336,7 @@
 
     <!-- Section 4: À propos de moi -->
     <section
+      v-if="!content.pages.accueil.moi.hidden"
       id="moi"
       class="py-12 desktopview:py-20 bg-secondary-earth-50 scroll-mt-20"
     >
@@ -426,6 +427,10 @@ import {
   ArrowRight,
 } from "lucide-vue-next";
 const content = await useContent();
+
+const visibleActivities = computed(() =>
+  content.value.pages.accueil.autres_activites.activities.filter((a) => !a.hidden)
+);
 
 // Desktop: features split between the left and right columns around the image
 const featuresSplit = computed(() =>
