@@ -163,13 +163,13 @@
           <a
             :href="content.pages.tarifs.planning.download_link.href"
             download
+            data-studio-field="download_link"
             class="text-primary-green-400 mt-4 desktopview:mt-5 font-semibold text-base cursor-pointer hover:underline inline-flex items-center gap-2"
           >
             <component
               v-if="content.pages.tarifs.planning.download_link.icon"
               :is="iconMap[content.pages.tarifs.planning.download_link.icon]"
               class="w-5 h-5"
-              data-studio-field="download_link"
             />
             {{ content.pages.tarifs.planning.download_link.label }}
           </a>

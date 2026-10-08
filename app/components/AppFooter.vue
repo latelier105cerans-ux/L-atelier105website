@@ -132,7 +132,7 @@
         </p>
 
         <!-- Social Icons -->
-        <div class="flex gap-4">
+        <div class="flex gap-4" data-studio-field="social">
           <a
             :href="content.footer.social.facebook"
             target="_blank"

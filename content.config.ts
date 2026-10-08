@@ -21,7 +21,7 @@ const list = <T extends z.ZodType>(label: string, item: T, description?: string)
   edit(z.array(item), { label, description })
 // Optional, so existing entries without the field stay visible
 const hidden = (what = 'cet élément') =>
-  edit(z.boolean(), { label: 'Masquer sur le site', description: `Activez pour cacher ${what} sans le supprimer` }).optional()
+  edit(z.boolean(), { label: 'Masquer sur le site', description: `Activez pour cacher ${what} du site, sans rien supprimer` }).optional()
 // Page collections get these fields from Nuxt Content; they're unused by the site, so hide them in Studio.
 // Never hide a key that exists in a YAML file: Studio drops hidden keys before comparing with GitHub,
 // which shows a permanent "Conflit détecté" (and publishing would delete the key)
