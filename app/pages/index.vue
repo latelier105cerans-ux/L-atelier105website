@@ -3,6 +3,7 @@
     <!-- Section 1: L'Espace -->
     <section
       id="lespace"
+      data-studio="hero"
       class="py-12 desktopview:py-16 scroll-mt-20 bg-secondary-earth-50"
     >
       <div class="container mx-auto px-4">
@@ -74,6 +75,7 @@
     <section
       v-if="!content.pages.accueil.apa.hidden"
       id="lapa"
+      data-studio="apa"
       class="py-12 desktopview:py-20 bg-secondary-earth-50 scroll-mt-20"
     >
       <div class="container mx-auto px-4">
@@ -97,6 +99,8 @@
             <div
               v-for="(feature, index) in content.pages.accueil.apa.features"
               :key="index"
+              data-studio-item="features"
+              :data-studio-index="index"
               class="flex flex-col gap-4"
             >
               <div
@@ -146,6 +150,8 @@
                     feature, index
                   ) in content.pages.accueil.apa.features.slice(0, featuresSplit)"
                   :key="index"
+                  data-studio-item="features"
+                  :data-studio-index="index"
                   class="flex flex-col gap-4"
                 >
                   <div
@@ -181,6 +187,8 @@
                     feature, index
                   ) in content.pages.accueil.apa.features.slice(featuresSplit)"
                   :key="index"
+                  data-studio-item="features"
+                  :data-studio-index="index + featuresSplit"
                   class="flex flex-col gap-4"
                 >
                   <div
@@ -219,6 +227,7 @@
     <section
       v-if="!content.pages.accueil.autres_activites.hidden"
       id="autres-activites"
+      data-studio="autres_activites"
       class="py-12 desktopview:py-20 scroll-mt-20 bg-gray-25"
     >
       <div class="container mx-auto px-4">
@@ -241,6 +250,8 @@
             <div
               v-for="activities in visibleActivities"
               :key="activities.title"
+              data-studio-item="activities"
+              :data-studio-index="content.pages.accueil.autres_activites.activities.indexOf(activities)"
               class="flex flex-col gap-6"
             >
               <div
@@ -283,6 +294,8 @@
             <div
               v-for="(activities, index) in visibleActivities"
               :key="activities.title"
+              data-studio-item="activities"
+              :data-studio-index="content.pages.accueil.autres_activites.activities.indexOf(activities)"
               class="grid grid-cols-2 gap-12 items-center"
               :class="index % 2 === 0 ? '' : 'direction-rtl'"
             >
@@ -338,6 +351,7 @@
     <section
       v-if="!content.pages.accueil.moi.hidden"
       id="moi"
+      data-studio="moi"
       class="py-12 desktopview:py-20 bg-secondary-earth-50 scroll-mt-20"
     >
       <div class="container mx-auto px-4">

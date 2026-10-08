@@ -13,17 +13,23 @@
               <!-- Title -->
               <div>
                 <h1
+                  data-studio="title"
                   class="text-4xl desktopview:text-5xl font-bold text-gray-900 mb-4"
                 >
                   {{ content.pages.contact.title }}
                 </h1>
                 <p
+                  data-studio="subtitle"
                   class="text-gray-600 font-normal text-lg desktopview:text-xl whitespace-pre-line"
                 >{{ content.pages.contact.subtitle }}</p>
               </div>
 
               <!-- Form -->
-              <form @submit.prevent="handleSubmit" class="space-y-6">
+              <form
+                data-studio="form"
+                @submit.prevent="handleSubmit"
+                class="space-y-6"
+              >
                 <!-- Success/Error Messages -->
                 <div
                   v-if="submitStatus === 'success'"
@@ -156,6 +162,7 @@
             <!-- Right Column: Image - Hidden on mobile -->
             <div class="hidden desktopview:block">
               <img
+                data-studio="img"
                 :src="content.pages.contact.img"
                 alt="Contact"
                 class="w-full h-full object-cover rounded-2xl"

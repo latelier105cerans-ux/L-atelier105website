@@ -3,6 +3,7 @@
     <!-- APA -->
     <section
       v-if="!content.pages.tarifs.apa.hidden"
+      data-studio="apa"
       class="bg-gray-25 py-12 desktopview:py-20"
     >
       <div class="container mx-auto px-4">
@@ -25,6 +26,8 @@
           <div
             v-for="(plan, index) in visiblePricing"
             :key="index"
+            data-studio-item="pricing"
+            :data-studio-index="content.pages.tarifs.apa.pricing.indexOf(plan)"
             class="bg-secondary-earth-50 rounded-2xl p-8 flex flex-col"
           >
             <h3
@@ -68,6 +71,7 @@
     <!-- Autre Activites -->
     <section
       v-if="!content.pages.tarifs.autres_activites.hidden"
+      data-studio="autres_activites"
       id="autres-activites"
       class="bg-primary-green-50 py-12 desktopview:py-20 scroll-mt-20"
     >
@@ -91,6 +95,8 @@
           <div
             v-for="(activity, index) in visibleActivities"
             :key="index"
+            data-studio-item="activities"
+            :data-studio-index="content.pages.tarifs.autres_activites.activities.indexOf(activity)"
             class="bg-primary-green-100 rounded-2xl p-8 flex flex-col flex-1"
           >
             <h3
@@ -131,6 +137,7 @@
     <!-- Planning -->
     <section
       v-if="!content.pages.tarifs.planning.hidden"
+      data-studio="planning"
       class="bg-gray-25 py-12 desktopview:py-20"
     >
       <div class="container mx-auto px-4">

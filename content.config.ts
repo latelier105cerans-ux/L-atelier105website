@@ -22,6 +22,13 @@ const list = <T extends z.ZodType>(label: string, item: T, description?: string)
 // Optional, so existing entries without the field stay visible
 const hidden = (what = 'cet élément') =>
   edit(z.boolean(), { label: 'Masquer sur le site', description: `Activez pour cacher ${what} sans le supprimer` }).optional()
+// Page collections get these fields from Nuxt Content; they're unused by the site, so hide them in Studio
+const pageMeta = {
+  title: edit(z.string(), { hidden: true }).optional(),
+  description: edit(z.string(), { hidden: true }).optional(),
+  seo: edit(z.any(), { hidden: true }).optional(),
+  navigation: edit(z.any(), { hidden: true }).optional(),
+}
 const href = () => text('Lien', 'Ex. /tarifs, /contact, /#lapa (section de l\'accueil) ou https://… (autre site)')
 
 // Icons available in the pages' iconMap (lucide-vue-next)
@@ -83,10 +90,11 @@ export default defineContentConfig({
     }),
 
     accueil: defineCollection({
-      type: 'data',
+      // 'page' gives each file a path, so Studio opens the matching page in the preview (and vice versa)
+      type: 'page',
       source: 'accueil.yml',
       schema: z.object({
-        title: text('Nom de la page'),
+        ...pageMeta,
         ...seo,
         hero: group('Bienvenue (haut de page)', {
           title: longText('Titre principal', 'Un retour à la ligne ici = un retour à la ligne sur le site'),
@@ -153,9 +161,10 @@ export default defineContentConfig({
     }),
 
     tarifs: defineCollection({
-      type: 'data',
+      type: 'page',
       source: 'tarifs.yml',
       schema: z.object({
+        ...pageMeta,
         ...seo,
         planning: group('Planning', {
           hidden: hidden('toute cette section'),
@@ -197,9 +206,11 @@ export default defineContentConfig({
     }),
 
     contact: defineCollection({
-      type: 'data',
+      type: 'page',
       source: 'contact.yml',
       schema: z.object({
+        ...pageMeta,
+        // Visible heading of the contact page (stored in Nuxt Content's own `title` field)
         title: text('Titre'),
         subtitle: longText('Sous-titre'),
         ...seo,

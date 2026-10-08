@@ -1,5 +1,10 @@
 <template>
-  <section v-if="visibleItems.length" class="bg-gray-25 py-12 desktopview:py-16">
+  <section
+    v-if="visibleItems.length"
+    data-studio="news"
+    data-studio-list="items"
+    class="bg-gray-25 py-12 desktopview:py-16"
+  >
     <div class="container mx-auto px-4">
       <div
         class="bg-secondary-earth-50 rounded-3xl p-8 desktopview:p-12 flex flex-col gap-8 items-center"

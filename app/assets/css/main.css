@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Nuxt Studio: element controlled by the field being edited (see plugins/studio-highlight.client.ts) */
+[data-studio-highlight] {
+  outline: 3px dashed #e8833a;
+  outline-offset: 4px;
+  border-radius: 0.5rem;
+  transition: outline-color 0.2s;
+}

@@ -16,7 +16,10 @@ Vous pouvez changer vous-même tous les textes, prix, horaires, actualités et p
    - `tarifs` : tarifs et planning
    - `contact` : page contact
    - `menu-et-pied-de-page` : liens du menu, bouton vert, logo, adresse, téléphone, email, Facebook / Instagram
-2. Modifiez les champs. **L'aperçu du site se met à jour en direct.**
+   L'aperçu va automatiquement sur la page choisie. Et inversement : en naviguant sur le site,
+   l'éditeur ouvre la bonne page.
+2. Modifiez les champs. **L'aperçu du site se met à jour en direct**, et la partie du site que vous modifiez
+   est **entourée en orange** (l'aperçu défile jusqu'à elle).
 3. Pour ajouter une actualité, un créneau ou une formule, utilisez le bouton **+** sous la liste.
 4. Dans les textes longs, un **retour à la ligne** (touche Entrée) s'affiche aussi sur le site :
    pratique pour faire des listes (une ligne par « ✔ »).

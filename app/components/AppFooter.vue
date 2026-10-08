@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-primary-green-400 text-gray-25 mt-auto">
+  <footer data-studio="footer" class="bg-primary-green-400 text-gray-25 mt-auto">
     <div class="container mx-auto px-4 py-12">
       <!-- Mobile Layout -->
       <div class="desktopview:hidden flex flex-col gap-8">

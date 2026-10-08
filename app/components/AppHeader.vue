@@ -1,5 +1,9 @@
 <template>
-  <header class="bg-gray-25 shadow-sm sticky top-0 z-50">
+  <header
+    data-studio="header navigation"
+    data-studio-list="links"
+    class="bg-gray-25 shadow-sm sticky top-0 z-50"
+  >
     <nav class="container mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
         <!-- Logo -->
@@ -42,12 +46,16 @@
 
         <!-- Desktop Navigation - Centered links -->
         <div
+          data-studio="navigation"
+          data-studio-list="links"
           class="hidden desktopview:flex items-center flex-1 justify-center gap-8"
         >
           <AppNavLink
             v-for="(link, index) in links"
             :key="index"
             :href="link.href"
+            data-studio-item="links"
+            :data-studio-index="content.navigation.links.indexOf(link)"
             class="text-gray-700 hover:text-gray-900 transition-colors"
             active-class="text-gray-900 font-semibold"
           >
@@ -59,6 +67,7 @@
         <div class="hidden desktopview:block">
           <AppNavLink
             :href="content.navigation.contact.href"
+            data-studio="navigation.contact"
             class="flex justify-center items-center bg-primary-green-400 h-11 px-6 rounded-full text-gray-25 hover:bg-primary-green-300 transition-colors"
             active-class="ring-2 ring-primary-green-400 ring-offset-2"
           >
