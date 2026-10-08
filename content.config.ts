@@ -22,7 +22,9 @@ const list = <T extends z.ZodType>(label: string, item: T, description?: string)
 // Optional, so existing entries without the field stay visible
 const hidden = (what = 'cet élément') =>
   edit(z.boolean(), { label: 'Masquer sur le site', description: `Activez pour cacher ${what} sans le supprimer` }).optional()
-// Page collections get these fields from Nuxt Content; they're unused by the site, so hide them in Studio
+// Page collections get these fields from Nuxt Content; they're unused by the site, so hide them in Studio.
+// Never hide a key that exists in a YAML file: Studio drops hidden keys before comparing with GitHub,
+// which shows a permanent "Conflit détecté" (and publishing would delete the key)
 const pageMeta = {
   title: edit(z.string(), { hidden: true }).optional(),
   description: edit(z.string(), { hidden: true }).optional(),
@@ -81,12 +83,6 @@ export default defineContentConfig({
             instagram: text('Lien Instagram', 'Adresse complète, commençant par https://'),
           }),
         }),
-        // Not displayed anywhere on the site: hidden to avoid confusion
-        site: edit(z.object({
-          name: text('Nom du site'),
-          description: longText('Description'),
-          keywords: text('Mots-clés', 'Séparés par des virgules'),
-        }), { hidden: true }),
       }),
     }),
 
