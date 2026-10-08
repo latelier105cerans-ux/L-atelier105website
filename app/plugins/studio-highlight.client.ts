@@ -190,8 +190,10 @@ const translateForm = (root: ShadowRoot) => {
 
 // Text areas grow with their content
 const autosize = (textarea: HTMLTextAreaElement) => {
+  const height = textarea.style.height;
   textarea.style.height = "auto";
-  textarea.style.height = `${textarea.scrollHeight + 2}px`;
+  const fitted = `${textarea.scrollHeight + 2}px`;
+  textarea.style.height = fitted === height ? height : fitted;
 };
 
 // ---------------------------------------------------------------------------------------------
@@ -296,57 +298,61 @@ export default defineNuxtPlugin(() => {
     badge.remove();
   };
 
-  const isInStudio = (path: EventTarget[]) =>
-    path.some((node) => (node as Element).tagName === "NUXT-STUDIO");
+  // Listen inside Studio's shadow root: when the focus moves between two of its fields, the
+  // focus events don't reach the page (seen from outside, <nuxt-studio> keeps the focus)
+  const listen = (root: ShadowRoot) => {
+    root.addEventListener("focusin", (event) => {
+      const path = event.composedPath();
+      const input = path[0];
+      if (!(input instanceof Element)) return;
+      if (input instanceof HTMLTextAreaElement) autosize(input);
+      const name = fieldPath(input);
+      if (!name) return;
 
-  document.addEventListener("focusin", (event) => {
-    const path = event.composedPath();
-    if (!isInStudio(path)) return;
+      const target = findTarget(name, path);
+      if (!target) return;
 
-    const input = path[0] as Element;
-    if (input instanceof HTMLTextAreaElement) autosize(input);
-    const name = input instanceof Element ? fieldPath(input) : undefined;
-    if (!name) return;
+      clearTimeout(clearTimer);
+      if (target !== current) {
+        clear();
+        current = target;
+        // An attribute, not a class: Vue rewrites `class` on elements with a :class binding
+        target.setAttribute("data-studio-highlight", "");
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      const label = editorOf(resolve(name))?.label ?? name.split("/").pop();
+      badge.textContent = `✏️ ${label}`;
+      if (!badge.isConnected) document.body.appendChild(badge);
+      cancelAnimationFrame(frame);
+      placeBadge();
+    });
 
-    const target = findTarget(name, path);
-    if (!target) return;
+    root.addEventListener("focusout", () => {
+      // Keep the outline when moving between fields of the same element
+      clearTimeout(clearTimer);
+      clearTimer = setTimeout(clear, 300);
+    });
 
-    clearTimeout(clearTimer);
-    if (target !== current) {
-      clear();
-      current = target;
-      // An attribute, not a class: Vue rewrites `class` on elements with a :class binding
-      target.setAttribute("data-studio-highlight", "");
-      target.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-    const label = editorOf(resolve(name))?.label ?? name.split("/").pop();
-    badge.textContent = `✏️ ${label}`;
-    if (!badge.isConnected) document.body.appendChild(badge);
-    cancelAnimationFrame(frame);
-    placeBadge();
-  });
-
-  document.addEventListener("focusout", (event) => {
-    if (!isInStudio(event.composedPath())) return;
-    // Keep the outline when moving between fields of the same element
-    clearTimeout(clearTimer);
-    clearTimer = setTimeout(clear, 300);
-  });
-
-  document.addEventListener("input", (event) => {
-    const target = event.composedPath()[0];
-    if (target instanceof HTMLTextAreaElement && isInStudio(event.composedPath())) autosize(target);
-  });
+    root.addEventListener("input", (event) => {
+      const target = event.composedPath()[0];
+      if (target instanceof HTMLTextAreaElement) autosize(target);
+    });
+  };
 
   // Studio's form: French labels and text area sizes, re-applied when it re-renders
   const enhance = async (root: ShadowRoot) => {
     addStyle(root, STUDIO_CSS);
+    listen(root);
     await loadSchemas();
     let scheduled = false;
     const run = () => {
       scheduled = false;
       translateForm(root);
-      root.querySelectorAll<HTMLTextAreaElement>("textarea[name]").forEach(autosize);
+      // New text areas only: resizing them all on every change makes the form jump
+      root.querySelectorAll<HTMLTextAreaElement>("textarea[name]:not([data-studio-sized])").forEach((textarea) => {
+        textarea.dataset.studioSized = "";
+        autosize(textarea);
+      });
     };
     new MutationObserver(() => {
       if (!scheduled) {
