@@ -34,12 +34,14 @@
                 <div
                   v-if="submitStatus === 'success'"
                   class="p-4 bg-primary-green-100 text-primary-green-900 rounded-lg"
+                  data-studio-field="success"
                 >
                   {{ content.pages.contact.form.success }}
                 </div>
                 <div
                   v-if="submitStatus === 'error'"
                   class="p-4 bg-red-100 text-red-900 rounded-lg"
+                  data-studio-field="error"
                 >
                   {{ content.pages.contact.form.error }}
                 </div>
@@ -49,6 +51,7 @@
                   <label
                     for="name"
                     class="block text-lg font-semibold text-gray-800 mb-2"
+                    data-studio-field="firstname"
                   >
                     {{ content.pages.contact.form.firstname }}
                     <span class="text-red-500">*</span>
@@ -62,6 +65,7 @@
                     :placeholder="
                       content.pages.contact.form.firstnamePlaceholder
                     "
+                    data-studio-field="firstnamePlaceholder"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green-400 focus:border-transparent"
                   />
                 </div>
@@ -70,6 +74,7 @@
                   <label
                     for="lastname"
                     class="block text-lg font-semibold text-gray-800 mb-2"
+                    data-studio-field="lastname"
                   >
                     {{ content.pages.contact.form.lastname }}
                     <span class="text-red-500">*</span>
@@ -83,6 +88,7 @@
                     :placeholder="
                       content.pages.contact.form.lastnamePlaceholder
                     "
+                    data-studio-field="lastnamePlaceholder"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green-400 focus:border-transparent"
                   />
                 </div>
@@ -92,6 +98,7 @@
                   <label
                     for="email"
                     class="block text-lg font-semibold text-gray-800 mb-2"
+                    data-studio-field="email"
                   >
                     {{ content.pages.contact.form.email }}
                     <span class="text-red-500">*</span>
@@ -104,6 +111,7 @@
                     required
                     :placeholder="content.pages.contact.form.emailPlaceholder"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green-400 focus:border-transparent"
+                    data-studio-field="emailPlaceholder"
                   />
                 </div>
                 <!-- Phone -->
@@ -112,6 +120,7 @@
                   <label
                     for="phone"
                     class="block text-lg font-semibold text-gray-800 mb-2"
+                    data-studio-field="phone"
                   >
                     {{ content.pages.contact.form.phone }}
                   </label>
@@ -122,6 +131,7 @@
                     type="tel"
                     :placeholder="content.pages.contact.form.phonePlaceholder"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green-400 focus:border-transparent"
+                    data-studio-field="phonePlaceholder"
                   />
                 </div>
 
@@ -130,6 +140,7 @@
                   <label
                     for="message"
                     class="block text-lg font-semibold text-gray-800 mb-2"
+                    data-studio-field="message"
                   >
                     {{ content.pages.contact.form.message }}
                     <span class="text-red-500">*</span>
@@ -142,6 +153,7 @@
                     rows="6"
                     :placeholder="content.pages.contact.form.messagePlaceholder"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green-400 focus:border-transparent resize-none"
+                    data-studio-field="messagePlaceholder"
                   ></textarea>
                 </div>
 
@@ -151,10 +163,10 @@
                   :disabled="isSubmitting"
                   class="flex w-full justify-center items-center bg-primary-green-400 h-11 px-6 rounded-full text-gray-25 hover:bg-primary-green-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span v-if="!isSubmitting">{{
+                  <span v-if="!isSubmitting" data-studio-field="submit">{{
                     content.pages.contact.form.submit
                   }}</span>
-                  <span v-else>{{ content.pages.contact.form.sending }}</span>
+                  <span v-else data-studio-field="sending">{{ content.pages.contact.form.sending }}</span>
                 </button>
               </form>
             </div>

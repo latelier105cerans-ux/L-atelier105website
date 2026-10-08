@@ -8,6 +8,7 @@
           <AppNavLink
             :href="content.navigation.contact.href"
             class="flex justify-center items-center bg-gray-25 h-11 px-6 rounded-full text-primary-green-400 hover:bg-gray-100 transition-colors"
+            data-studio-field="contact"
           >
             {{ content.navigation.contact.label }}
           </AppNavLink>
@@ -19,17 +20,18 @@
             :src="content.footer.logo"
             alt="Atelier 105"
             class="h-11 w-auto"
+            data-studio-field="logo"
           />
         </div>
 
         <!-- 3. Address - Left aligned -->
         <div>
-          <p class="font-normal text-base">
+          <p class="font-normal text-base" data-studio-field="address zip_city">
             {{ content.footer.address }}<br />
             {{ content.footer.zip_city }}
             <template v-if="content.footer.phone">
               <br />
-              <a :href="phoneHref" class="hover:text-white transition-colors">{{
+              <a :href="phoneHref" class="hover:text-white transition-colors" data-studio-field="phone">{{
                 content.footer.phone
               }}</a>
             </template>
@@ -38,6 +40,7 @@
               <a
                 :href="`mailto:${content.footer.email}`"
                 class="hover:text-white transition-colors"
+                  data-studio-field="email"
                 >{{ content.footer.email }}</a
               >
             </template>
@@ -56,6 +59,7 @@
               :key="index"
               :href="link.href"
               class="block hover:text-white transition-colors font-semibold text-base"
+              data-studio-field="label"
             >
               {{ link.label }}
             </AppNavLink>
@@ -71,10 +75,12 @@
             :src="content.footer.logo"
             alt="Atelier 105"
             class="h-11 w-auto"
+            data-studio-field="logo"
           />
           <AppNavLink
             :href="content.navigation.contact.href"
             class="flex justify-center items-center bg-gray-25 h-11 px-6 rounded-full text-primary-green-400 hover:bg-gray-100 transition-colors"
+            data-studio-field="contact"
           >
             {{ content.navigation.contact.label }}
           </AppNavLink>
@@ -82,12 +88,12 @@
 
         <!-- Address below logo -->
         <div class="mb-6">
-          <p class="font-normal text-base">
+          <p class="font-normal text-base" data-studio-field="address zip_city">
             {{ content.footer.address }}<br />
             {{ content.footer.zip_city }}
             <template v-if="content.footer.phone">
               <br />
-              <a :href="phoneHref" class="hover:text-white transition-colors">{{
+              <a :href="phoneHref" class="hover:text-white transition-colors" data-studio-field="phone">{{
                 content.footer.phone
               }}</a>
             </template>
@@ -96,6 +102,7 @@
               <a
                 :href="`mailto:${content.footer.email}`"
                 class="hover:text-white transition-colors"
+                  data-studio-field="email"
                 >{{ content.footer.email }}</a
               >
             </template>
@@ -109,6 +116,7 @@
             :key="index"
             :href="link.href"
             class="hover:text-white transition-colors font-semibold text-base"
+            data-studio-field="label"
           >
             {{ link.label }}
           </AppNavLink>
@@ -119,7 +127,7 @@
       <div
         class="border-t border-gray-25 mt-12 pt-8 flex flex-row justify-between items-center gap-4"
       >
-        <p class="text-center desktopview:text-left">
+        <p class="text-center desktopview:text-left" data-studio-field="copyright">
           {{ content.footer.copyright }}
         </p>
 

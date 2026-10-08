@@ -12,13 +12,14 @@
           <!-- Background with text -->
           <div class="bg-gray-25 rounded-3xl p-6">
             <div class="flex flex-col gap-6">
-              <h1 class="font-semibold text-4xl whitespace-pre-line">{{ content.pages.accueil.hero.title }}</h1>
-              <p class="text-base whitespace-pre-line">{{ content.pages.accueil.hero.subtitle }}</p>
-              <p class="text-base whitespace-pre-line">{{ content.pages.accueil.hero.subtitle_2 }}</p>
+              <h1 class="font-semibold text-4xl whitespace-pre-line" data-studio-field="title">{{ content.pages.accueil.hero.title }}</h1>
+              <p class="text-base whitespace-pre-line" data-studio-field="subtitle">{{ content.pages.accueil.hero.subtitle }}</p>
+              <p class="text-base whitespace-pre-line" data-studio-field="subtitle_2">{{ content.pages.accueil.hero.subtitle_2 }}</p>
               <div class="flex justify-center">
                 <a
                   href="/#lapa"
                   class="flex justify-center items-center bg-primary-green-400 h-11 px-6 rounded-full text-gray-25 hover:bg-primary-green-300 transition-colors"
+                  data-studio-field="cta"
                 >
                   {{ content.pages.accueil.hero.cta }}
                 </a>
@@ -31,6 +32,7 @@
               :src="content.pages.accueil.hero.img"
               alt="L'Espace"
               class="w-full h-auto aspect-video object-cover rounded-2xl"
+              data-studio-field="img"
             />
           </div>
         </div>
@@ -41,12 +43,13 @@
             <div class="flex items-center gap-10">
               <!-- Text on the left -->
               <div class="flex-1 flex flex-col gap-8">
-                <h1 class="font-semibold text-6xl whitespace-pre-line">{{ content.pages.accueil.hero.title }}</h1>
-                <p class="text-lg whitespace-pre-line">{{ content.pages.accueil.hero.subtitle }}</p>
-                <p class="text-lg whitespace-pre-line">{{ content.pages.accueil.hero.subtitle_2 }}</p>
+                <h1 class="font-semibold text-6xl whitespace-pre-line" data-studio-field="title">{{ content.pages.accueil.hero.title }}</h1>
+                <p class="text-lg whitespace-pre-line" data-studio-field="subtitle">{{ content.pages.accueil.hero.subtitle }}</p>
+                <p class="text-lg whitespace-pre-line" data-studio-field="subtitle_2">{{ content.pages.accueil.hero.subtitle_2 }}</p>
                 <NuxtLink
                   to="/contact"
                   class="flex justify-center items-center bg-primary-green-400 h-11 px-6 rounded-full text-gray-25 hover:bg-primary-green-300 transition-colors w-fit"
+                  data-studio-field="cta"
                 >
                   {{ content.pages.accueil.hero.cta }}
                 </NuxtLink>
@@ -57,6 +60,7 @@
                   :src="content.pages.accueil.hero.img"
                   alt="L'Espace"
                   class="w-full max-w-[560px] h-auto max-h-[640px] object-cover rounded-2xl"
+                  data-studio-field="img"
                 />
               </div>
             </div>
@@ -82,14 +86,15 @@
         <div class="max-w-6xl mx-auto">
           <!-- Title -->
           <div class="text-center mb-12 desktopview:mb-16">
-            <h2 class="text-sm font-semibold text-secondary-earth-500 mb-2">
+            <h2 class="text-sm font-semibold text-secondary-earth-500 mb-2" data-studio-field="subtitle">
               {{ content.pages.accueil.apa.subtitle }}
             </h2>
-            <p class="text-4xl desktopview:text-5xl font-bold text-gray-900">
+            <p class="text-4xl desktopview:text-5xl font-bold text-gray-900" data-studio-field="title">
               {{ content.pages.accueil.apa.title }}
             </p>
             <p
               class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
+              data-studio-field="description"
             >{{ content.pages.accueil.apa.description }}</p>
           </div>
 
@@ -109,13 +114,14 @@
                 <component
                   :is="iconMap[feature.icon]"
                   class="w-6 h-6 text-primary-green-400"
+                  data-studio-field="icon"
                 />
               </div>
               <div class="flex flex-col gap-2">
-                <h3 class="font-semibold text-xl text-gray-900">
+                <h3 class="font-semibold text-xl text-gray-900" data-studio-field="title">
                   {{ feature.title }}
                 </h3>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ feature.description }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ feature.description }}</p>
               </div>
             </div>
 
@@ -125,6 +131,7 @@
                 :src="content.pages.accueil.apa.img"
                 alt="APA"
                 class="w-full h-auto rounded-2xl aspect-video object-cover"
+                data-studio-field="img"
               />
             </div>
 
@@ -133,6 +140,7 @@
               <NuxtLink
                 to="/tarifs"
                 class="flex justify-center items-center bg-primary-green-400 h-11 px-6 rounded-full text-gray-25 hover:bg-primary-green-300 transition-colors"
+                data-studio-field="cta"
               >
                 {{ content.pages.accueil.apa.cta }}
               </NuxtLink>
@@ -160,13 +168,14 @@
                     <component
                       :is="iconMap[feature.icon]"
                       class="w-6 h-6 text-primary-green-400"
+                      data-studio-field="icon"
                     />
                   </div>
                   <div class="flex flex-col gap-2">
-                    <h3 class="font-semibold text-xl text-gray-900">
+                    <h3 class="font-semibold text-xl text-gray-900" data-studio-field="title">
                       {{ feature.title }}
                     </h3>
-                    <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ feature.description }}</p>
+                    <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ feature.description }}</p>
                   </div>
                 </div>
               </div>
@@ -177,6 +186,7 @@
                   :src="content.pages.accueil.apa.img"
                   alt="APA"
                   class="w-full h-full object-cover rounded-2xl"
+                  data-studio-field="img"
                 />
               </div>
 
@@ -197,13 +207,14 @@
                     <component
                       :is="iconMap[feature.icon]"
                       class="w-6 h-6 text-primary-green-400"
+                      data-studio-field="icon"
                     />
                   </div>
                   <div class="flex flex-col gap-2">
-                    <h3 class="font-semibold text-xl text-gray-900">
+                    <h3 class="font-semibold text-xl text-gray-900" data-studio-field="title">
                       {{ feature.title }}
                     </h3>
-                    <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ feature.description }}</p>
+                    <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ feature.description }}</p>
                   </div>
                 </div>
               </div>
@@ -214,6 +225,7 @@
               <NuxtLink
                 to="/tarifs"
                 class="flex justify-center items-center bg-primary-green-400 h-11 px-6 rounded-full text-gray-25 hover:bg-primary-green-300 transition-colors"
+                data-studio-field="cta"
               >
                 {{ content.pages.accueil.apa.cta }}
               </NuxtLink>
@@ -234,14 +246,15 @@
         <div class="max-w-6xl mx-auto">
           <!-- Title -->
           <div class="text-center mb-12 desktopview:mb-16">
-            <h2 class="text-sm font-semibold text-secondary-earth-500 mb-2">
+            <h2 class="text-sm font-semibold text-secondary-earth-500 mb-2" data-studio-field="subtitle">
               {{ content.pages.accueil.autres_activites.subtitle }}
             </h2>
-            <p class="text-4xl desktopview:text-5xl font-bold text-gray-900">
+            <p class="text-4xl desktopview:text-5xl font-bold text-gray-900" data-studio-field="title">
               {{ content.pages.accueil.autres_activites.title }}
             </p>
             <p
               class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
+              data-studio-field="description"
             >{{ content.pages.accueil.autres_activites.description }}</p>
           </div>
 
@@ -260,24 +273,27 @@
                 <component
                   :is="iconMap[activities.icon]"
                   class="w-6 h-6 text-primary-green-400"
+                  data-studio-field="icon"
                 />
               </div>
-              <h2 class="text-2xl font-semibold text-gray-900">
+              <h2 class="text-2xl font-semibold text-gray-900" data-studio-field="title">
                 {{ activities.title }}
               </h2>
-              <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ activities.description }}</p>
-              <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ activities.description_2 }}</p>
+              <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ activities.description }}</p>
+              <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2">{{ activities.description_2 }}</p>
               <div>
                 <NuxtLink
                   v-if="activities.link"
                   :to="activities.link.href"
                   class="inline-flex items-center text-primary-green-400 text-base font-semibold hover:underline"
+                  data-studio-field="link"
                 >
                   {{ activities.link.label }}
                   <component
                     v-if="activities.link.icon"
                     :is="iconMap[activities.link.icon]"
                     class="w-4 h-4 ml-2"
+                    data-studio-field="link"
                   />
                 </NuxtLink>
               </div>
@@ -285,6 +301,7 @@
                 class="rounded-2xl aspect-video object-cover w-full"
                 :src="activities.img"
                 :alt="activities.title"
+                data-studio-field="img"
               />
             </div>
           </div>
@@ -307,24 +324,27 @@
                   <component
                     :is="iconMap[activities.icon]"
                     class="w-6 h-6 text-primary-green-400"
+                    data-studio-field="icon"
                   />
                 </div>
-                <h2 class="text-3xl font-semibold text-gray-900">
+                <h2 class="text-3xl font-semibold text-gray-900" data-studio-field="title">
                   {{ activities.title }}
                 </h2>
-                <p class="text-lg font-normal text-gray-800 whitespace-pre-line">{{ activities.description }}</p>
-                <p class="text-lg font-normal text-gray-800 whitespace-pre-line">{{ activities.description_2 }}</p>
+                <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ activities.description }}</p>
+                <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2">{{ activities.description_2 }}</p>
                 <div>
                   <NuxtLink
                     v-if="activities.link"
                     :to="activities.link.href"
                     class="inline-flex items-center text-primary-green-400 text-lg font-semibold hover:underline"
+                    data-studio-field="link"
                   >
                     {{ activities.link.label }}
                     <component
                       v-if="activities.link.icon"
                       :is="iconMap[activities.link.icon]"
                       class="w-5 h-5 ml-2"
+                      data-studio-field="link"
                     />
                   </NuxtLink>
                 </div>
@@ -339,6 +359,7 @@
                   ]"
                   :src="activities.img"
                   :alt="activities.title"
+                  data-studio-field="img"
                 />
               </div>
             </div>
@@ -364,22 +385,23 @@
             <div class="flex flex-col gap-6">
               <h2
                 class="text-sm font-semibold text-secondary-earth-500 text-center"
+                data-studio-field="subtitle"
               >
                 {{ content.pages.accueil.moi.subtitle }}
               </h2>
               <div class="text-center">
-                <p class="text-3xl font-bold text-gray-900">
+                <p class="text-3xl font-bold text-gray-900" data-studio-field="title">
                   {{ content.pages.accueil.moi.title }}
                 </p>
-                <p class="text-3xl text-gray-900 font-roustel mt-2">
+                <p class="text-3xl text-gray-900 font-roustel mt-2" data-studio-field="name">
                   {{ content.pages.accueil.moi.name }}
                 </p>
               </div>
               <div class="flex flex-col gap-4">
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ content.pages.accueil.moi.description }}</p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ content.pages.accueil.moi.description_2 }}</p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ content.pages.accueil.moi.description_3 }}</p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ content.pages.accueil.moi.description_4 }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ content.pages.accueil.moi.description }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2">{{ content.pages.accueil.moi.description_2 }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_3">{{ content.pages.accueil.moi.description_3 }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_4">{{ content.pages.accueil.moi.description_4 }}</p>
               </div>
             </div>
             <!-- Image -->
@@ -387,6 +409,7 @@
               class="rounded-2xl w-full aspect-video object-cover"
               :src="content.pages.accueil.moi.img"
               :alt="content.pages.accueil.moi.subtitle"
+              data-studio-field="img"
             />
           </div>
 
@@ -398,27 +421,28 @@
                 class="rounded-2xl w-full h-[800px] object-cover"
                 :src="content.pages.accueil.moi.img"
                 :alt="content.pages.accueil.moi.subtitle"
+                data-studio-field="img"
               />
             </div>
 
             <!-- Content -->
             <div class="flex flex-col gap-6">
-              <h2 class="text-base font-semibold text-secondary-earth-500">
+              <h2 class="text-base font-semibold text-secondary-earth-500" data-studio-field="subtitle">
                 {{ content.pages.accueil.moi.subtitle }}
               </h2>
               <div>
-                <p class="text-4xl font-bold text-gray-900">
+                <p class="text-4xl font-bold text-gray-900" data-studio-field="title">
                   {{ content.pages.accueil.moi.title }}
                 </p>
-                <p class="text-4xl text-gray-900 font-roustel mt-2">
+                <p class="text-4xl text-gray-900 font-roustel mt-2" data-studio-field="name">
                   {{ content.pages.accueil.moi.name }}
                 </p>
               </div>
               <div class="flex flex-col gap-4">
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ content.pages.accueil.moi.description }}</p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ content.pages.accueil.moi.description_2 }}</p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ content.pages.accueil.moi.description_3 }}</p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line">{{ content.pages.accueil.moi.description_4 }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ content.pages.accueil.moi.description }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2">{{ content.pages.accueil.moi.description_2 }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_3">{{ content.pages.accueil.moi.description_3 }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_4">{{ content.pages.accueil.moi.description_4 }}</p>
               </div>
             </div>
           </div>

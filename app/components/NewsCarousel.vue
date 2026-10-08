@@ -11,10 +11,16 @@
       >
         <!-- Title -->
         <div class="text-center">
-          <h2 class="text-sm font-semibold text-secondary-earth-500 mb-2">
+          <h2
+            class="text-sm font-semibold text-secondary-earth-500 mb-2"
+            data-studio-field="subtitle"
+          >
             {{ subtitle }}
           </h2>
-          <p class="text-2xl desktopview:text-4xl font-bold text-gray-900">
+          <p
+            class="text-2xl desktopview:text-4xl font-bold text-gray-900"
+            data-studio-field="title"
+          >
             {{ title }}
           </p>
         </div>

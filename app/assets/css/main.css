@@ -6,6 +6,18 @@
 [data-studio-highlight] {
   outline: 3px dashed #e8833a;
   outline-offset: 4px;
-  border-radius: 0.5rem;
   transition: outline-color 0.2s;
+}
+
+.studio-highlight-badge {
+  position: fixed;
+  z-index: 60;
+  pointer-events: none;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  background: #e8833a;
+  color: #fff;
+  font: 600 13px/22px Inter, system-ui, sans-serif;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.2);
 }

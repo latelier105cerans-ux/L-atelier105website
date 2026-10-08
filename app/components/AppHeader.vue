@@ -12,6 +12,7 @@
             :src="content.header.logo"
             alt="Atelier 105"
             class="h-11 w-auto"
+            data-studio-field="logo"
           />
         </NuxtLink>
 
@@ -58,6 +59,7 @@
             :data-studio-index="content.navigation.links.indexOf(link)"
             class="text-gray-700 hover:text-gray-900 transition-colors"
             active-class="text-gray-900 font-semibold"
+            data-studio-field="label"
           >
             {{ link.label }}
           </AppNavLink>
@@ -67,9 +69,9 @@
         <div class="hidden desktopview:block">
           <AppNavLink
             :href="content.navigation.contact.href"
-            data-studio="navigation.contact"
             class="flex justify-center items-center bg-primary-green-400 h-11 px-6 rounded-full text-gray-25 hover:bg-primary-green-300 transition-colors"
             active-class="ring-2 ring-primary-green-400 ring-offset-2"
+            data-studio-field="contact"
           >
             {{ content.navigation.contact.label }}
           </AppNavLink>
@@ -94,6 +96,7 @@
               @click="closeMenu"
               class="text-gray-700 hover:text-gray-900 transition-colors py-2"
               active-class="text-gray-900 font-semibold"
+              data-studio-field="label"
             >
               {{ link.label }}
             </AppNavLink>
@@ -104,6 +107,7 @@
               @click="closeMenu"
               class="flex justify-center items-center bg-primary-green-400 h-11 px-6 rounded-full text-gray-25 hover:bg-primary-green-300 transition-colors"
               active-class="ring-2 ring-primary-green-400 ring-offset-2"
+              data-studio-field="contact"
             >
               {{ content.navigation.contact.label }}
             </AppNavLink>

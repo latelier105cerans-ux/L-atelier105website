@@ -55,10 +55,8 @@ export default defineContentConfig({
       type: 'data',
       source: 'menu-et-pied-de-page.yml',
       schema: z.object({
-        site: group('Site', {
-          name: text('Nom du site'),
-          description: longText('Description'),
-          keywords: text('Mots-clés', 'Séparés par des virgules'),
+        header: group('En-tête', {
+          logo: media('Logo (en-tête)', 'SVG ou PNG'),
         }),
         navigation: group('Menu', {
           links: list('Liens du menu', z.object({
@@ -70,9 +68,6 @@ export default defineContentConfig({
             label: text('Texte'),
             href: href(),
           }),
-        }),
-        header: group('En-tête', {
-          logo: media('Logo (en-tête)', 'SVG ou PNG'),
         }),
         footer: group('Pied de page', {
           logo: media('Logo (pied de page)', 'SVG ou PNG'),
@@ -86,6 +81,12 @@ export default defineContentConfig({
             instagram: text('Lien Instagram', 'Adresse complète, commençant par https://'),
           }),
         }),
+        // Not displayed anywhere on the site: hidden to avoid confusion
+        site: edit(z.object({
+          name: text('Nom du site'),
+          description: longText('Description'),
+          keywords: text('Mots-clés', 'Séparés par des virgules'),
+        }), { hidden: true }),
       }),
     }),
 
@@ -95,7 +96,6 @@ export default defineContentConfig({
       source: 'accueil.yml',
       schema: z.object({
         ...pageMeta,
-        ...seo,
         hero: group('Bienvenue (haut de page)', {
           title: longText('Titre principal', 'Un retour à la ligne ici = un retour à la ligne sur le site'),
           subtitle: longText('Texte 1'),
@@ -157,6 +157,7 @@ export default defineContentConfig({
           description_4: longText('Paragraphe 4'),
           img: media('Photo'),
         }),
+        ...seo,
       }),
     }),
 
@@ -165,17 +166,6 @@ export default defineContentConfig({
       source: 'tarifs.yml',
       schema: z.object({
         ...pageMeta,
-        ...seo,
-        planning: group('Planning', {
-          hidden: hidden('toute cette section'),
-          ...sectionHeader,
-          download_link: group('Téléchargement', {
-            href: media('Fichier du planning à télécharger', 'Choisissez la même image que « Image du planning »'),
-            label: text('Texte du lien'),
-            icon: edit(z.string(), { hidden: true }),
-          }),
-          img: media('Image du planning'),
-        }),
         apa: group('Tarifs APA', {
           hidden: hidden('toute cette section'),
           ...sectionHeader,
@@ -202,6 +192,17 @@ export default defineContentConfig({
           disclaimer_1: longText('Mention 1'),
           disclaimer_2: longText('Mention 2'),
         }),
+        planning: group('Planning', {
+          hidden: hidden('toute cette section'),
+          ...sectionHeader,
+          download_link: group('Téléchargement', {
+            href: media('Fichier du planning à télécharger', 'Choisissez la même image que « Image du planning »'),
+            label: text('Texte du lien'),
+            icon: edit(z.string(), { hidden: true }),
+          }),
+          img: media('Image du planning'),
+        }),
+        ...seo,
       }),
     }),
 
@@ -213,7 +214,6 @@ export default defineContentConfig({
         // Visible heading of the contact page (stored in Nuxt Content's own `title` field)
         title: text('Titre'),
         subtitle: longText('Sous-titre'),
-        ...seo,
         img: media('Image'),
         form: group('Formulaire', {
           firstname: text('Champ Prénom'),
@@ -231,6 +231,7 @@ export default defineContentConfig({
           success: longText('Message de succès'),
           error: longText('Message d\'erreur'),
         }),
+        ...seo,
       }),
     }),
   },

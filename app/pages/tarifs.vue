@@ -9,14 +9,15 @@
       <div class="container mx-auto px-4">
         <!-- Title -->
         <div class="text-center mb-12 desktopview:mb-16">
-          <h2 class="text-sm font-semibold text-secondary-earth-500 mb-2">
+          <h2 class="text-sm font-semibold text-secondary-earth-500 mb-2" data-studio-field="subtitle">
             {{ content.pages.tarifs.apa.subtitle }}
           </h2>
-          <p class="text-4xl desktopview:text-5xl font-bold text-gray-900">
+          <p class="text-4xl desktopview:text-5xl font-bold text-gray-900" data-studio-field="title">
             {{ content.pages.tarifs.apa.title }}
           </p>
           <p
             class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
+            data-studio-field="description"
           >{{ content.pages.tarifs.apa.description }}</p>
         </div>
         <!-- priceCard -->
@@ -32,6 +33,7 @@
           >
             <h3
               class="text-4xl text-center font-semibold text-secondary-earth-900 mb-6"
+              data-studio-field="title"
             >
               {{ plan.title }}
             </h3>
@@ -50,12 +52,13 @@
                   />
                 </div>
                 <div class="flex flex-col">
-                  <span class="text-lg font-normal text-secondary-earth-600">{{
+                  <span class="text-lg font-normal text-secondary-earth-600" data-studio-field="amount">{{
                     price.amount
                   }}</span>
                   <span
                     v-if="price.label"
                     class="text-sm font-normal text-secondary-earth-600"
+                      data-studio-field="label"
                     >{{ price.label }}</span
                   >
                 </div>
@@ -64,7 +67,7 @@
           </div>
         </div>
         <!-- disclaimer -->
-        <p class="text-lg font-normal text-gray-800 whitespace-pre-line">{{ content.pages.tarifs.apa.disclaimer }}</p>
+        <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="disclaimer">{{ content.pages.tarifs.apa.disclaimer }}</p>
       </div>
     </section>
 
@@ -78,14 +81,15 @@
       <div class="container mx-auto px-4">
         <!-- Title -->
         <div class="text-center mb-12 desktopview:mb-16">
-          <h2 class="text-sm font-semibold text-secondary-earth-500 mb-2">
+          <h2 class="text-sm font-semibold text-secondary-earth-500 mb-2" data-studio-field="subtitle">
             {{ content.pages.tarifs.autres_activites.subtitle }}
           </h2>
-          <p class="text-4xl desktopview:text-5xl font-bold text-gray-900">
+          <p class="text-4xl desktopview:text-5xl font-bold text-gray-900" data-studio-field="title">
             {{ content.pages.tarifs.autres_activites.title }}
           </p>
           <p
             class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
+            data-studio-field="description"
           >{{ content.pages.tarifs.autres_activites.description }}</p>
         </div>
         <!-- priceCard -->
@@ -101,15 +105,17 @@
           >
             <h3
               class="text-4xl text-center font-semibold text-primary-green-900 mb-2"
+              data-studio-field="title"
             >
               {{ activity.title }}
             </h3>
             <p
               class="text-xl text-center font-semibold text-primary-green-600 mb-4"
+              data-studio-field="price"
             >
               {{ activity.price }}
             </p>
-            <p class="text-base text-center text-primary-green-600 mb-4 whitespace-pre-line">{{ activity.description }}</p>
+            <p class="text-base text-center text-primary-green-600 mb-4 whitespace-pre-line" data-studio-field="description">{{ activity.description }}</p>
             <div class="flex flex-col gap-2">
               <div
                 v-for="(slot, slotIndex) in activity.schedule"
@@ -130,8 +136,8 @@
           </div>
         </div>
         <!-- disclaimer -->
-        <p class="text-lg font-normal text-gray-800 whitespace-pre-line">{{ content.pages.tarifs.autres_activites.disclaimer_1 }}</p>
-        <p class="text-lg font-normal text-gray-800 mt-10 whitespace-pre-line">{{ content.pages.tarifs.autres_activites.disclaimer_2 }}</p>
+        <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="disclaimer_1">{{ content.pages.tarifs.autres_activites.disclaimer_1 }}</p>
+        <p class="text-lg font-normal text-gray-800 mt-10 whitespace-pre-line" data-studio-field="disclaimer_2">{{ content.pages.tarifs.autres_activites.disclaimer_2 }}</p>
       </div>
     </section>
     <!-- Planning -->
@@ -143,14 +149,15 @@
       <div class="container mx-auto px-4">
         <!-- Title -->
         <div class="text-left mb-12 desktopview:mb-16">
-          <h2 class="text-sm font-semibold text-secondary-earth-500 mb-2">
+          <h2 class="text-sm font-semibold text-secondary-earth-500 mb-2" data-studio-field="subtitle">
             {{ content.pages.tarifs.planning.subtitle }}
           </h2>
-          <p class="text-4xl desktopview:text-5xl font-bold text-gray-900">
+          <p class="text-4xl desktopview:text-5xl font-bold text-gray-900" data-studio-field="title">
             {{ content.pages.tarifs.planning.title }}
           </p>
           <p
             class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
+            data-studio-field="description"
           >{{ content.pages.tarifs.planning.description }}</p>
 
           <a
@@ -162,11 +169,12 @@
               v-if="content.pages.tarifs.planning.download_link.icon"
               :is="iconMap[content.pages.tarifs.planning.download_link.icon]"
               class="w-5 h-5"
+              data-studio-field="download_link"
             />
             {{ content.pages.tarifs.planning.download_link.label }}
           </a>
         </div>
-        <img :src="content.pages.tarifs.planning.img" alt="Planning" />
+        <img :src="content.pages.tarifs.planning.img" alt="Planning" data-studio-field="img"/>
       </div>
     </section>
   </div>
