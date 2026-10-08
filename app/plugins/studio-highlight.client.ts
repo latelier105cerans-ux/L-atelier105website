@@ -40,9 +40,19 @@ const PAGE_CSS = `
   box-shadow: 0 2px 6px rgb(0 0 0 / 0.2);
 }`;
 
+// The transparent caret on blurred fields forces Chrome to repaint them on blur: otherwise it
+// can leave the blinking cursor of fields you left painted (one "cursor" per field clicked)
+// when the page scrolls while a field of the fixed Studio panel has the focus.
 const STUDIO_CSS = `
 .studio-help { margin: 2px 0 0; font-size: 11px; line-height: 1.35; color: #78716c; }
-textarea[name] { resize: vertical; overflow: hidden; }`;
+textarea[name] { resize: vertical; overflow: hidden; }
+input:not(:focus), textarea:not(:focus) { caret-color: transparent; }`;
+
+// Repaint Studio's panel once the page stopped scrolling (same stale cursor issue)
+const repaint = (host: HTMLElement) => {
+  host.style.opacity = "0.999";
+  requestAnimationFrame(() => requestAnimationFrame(() => host.style.removeProperty("opacity")));
+};
 
 // ---------------------------------------------------------------------------------------------
 // Schema access (French labels) – the collections are exposed by Studio's host
@@ -318,7 +328,15 @@ export default defineNuxtPlugin(() => {
         current = target;
         // An attribute, not a class: Vue rewrites `class` on elements with a :class binding
         target.setAttribute("data-studio-highlight", "");
-        target.scrollIntoView({ behavior: "smooth", block: "center" });
+        // Only scroll when needed: the page doesn't move while editing a section already in view
+        const rect = target.getBoundingClientRect();
+        const inView = rect.top >= 80 && rect.bottom <= window.innerHeight; // 80px: sticky header
+        if (!inView) {
+          target.scrollIntoView({ behavior: "smooth", block: "center" });
+          const host = root.host as HTMLElement;
+          if ("onscrollend" in window) window.addEventListener("scrollend", () => repaint(host), { once: true });
+          else setTimeout(() => repaint(host), 700);
+        }
       }
       const label = editorOf(resolve(name))?.label ?? name.split("/").pop();
       badge.textContent = `✏️ ${label}`;
