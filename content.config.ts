@@ -1,27 +1,41 @@
-import { defineCollection, defineContentConfig, z } from '@nuxt/content'
+import { defineCollection, defineContentConfig, property } from '@nuxt/content'
+import type { EditorOptions } from '@nuxt/content'
+import { z } from 'zod/v4'
 
 // Each page of the site is one YAML file in /content, edited by the owner through
 // Nuxt Studio (/_studio). Labels below are what the owner sees in the Studio forms.
+//
+// Zod v4 (zod/v4) + property().editor() is required: with Zod v3, editor options set on
+// an object/array hide the options of every field inside it (no labels, no textarea, no media picker).
 
-const text = (label: string) => z.string().editor({ label })
-const longText = (label: string) => z.string().editor({ label, input: 'textarea' })
-const media = (label: string) => z.string().editor({ label, input: 'media' })
+const edit = <T extends z.ZodType>(schema: T, editor: EditorOptions): T =>
+  property(schema as any).editor(editor) as unknown as T
+
+const text = (label: string, description?: string) => edit(z.string(), { label, description })
+const longText = (label: string, description?: string) =>
+  edit(z.string(), { label, description, input: 'textarea' })
+const media = (label: string, description = 'JPG, PNG ou WEBP, idéalement environ 2000 pixels de large') =>
+  edit(z.string(), { label, description, input: 'media' })
+const group = <T extends z.ZodRawShape>(label: string, shape: T) => edit(z.object(shape), { label })
+const list = <T extends z.ZodType>(label: string, item: T, description?: string) =>
+  edit(z.array(item), { label, description })
 
 // Icons available in the pages' iconMap (lucide-vue-next)
-const featureIcon = z
-  .enum(['UserRound', 'HandHeart', 'HeartHandshake', 'Ticket', 'Dumbbell', 'RotateCw', 'Baby', 'Salad'])
-  .editor({ label: 'Icône' })
-const linkIcon = z.enum(['ArrowRight', '']).editor({ label: 'Icône du lien (flèche ou vide)' })
+const featureIcon = edit(
+  z.enum(['UserRound', 'HandHeart', 'HeartHandshake', 'Ticket', 'Dumbbell', 'RotateCw', 'Baby', 'Salad']),
+  { label: 'Icône' },
+)
+const linkIcon = edit(z.enum(['ArrowRight', '']), { label: 'Icône du lien', description: 'ArrowRight = flèche, vide = pas d\'icône' })
 
 const sectionHeader = {
   title: text('Titre'),
-  subtitle: text('Sur-titre'),
+  subtitle: text('Sur-titre', 'Petit texte coloré au-dessus du titre'),
   description: longText('Description'),
 }
 
 const seo = {
-  metaTitle: text('Titre Google (onglet du navigateur)'),
-  metaDescription: longText('Description Google'),
+  metaTitle: text('Titre Google', 'Affiché dans l\'onglet du navigateur et dans les résultats Google'),
+  metaDescription: longText('Description Google', 'Affichée sous le titre dans les résultats Google'),
 }
 
 export default defineContentConfig({
@@ -30,32 +44,32 @@ export default defineContentConfig({
       type: 'data',
       source: 'site.yml',
       schema: z.object({
-        site: z.object({
+        site: group('Site', {
           name: text('Nom du site'),
           description: longText('Description'),
-          keywords: text('Mots-clés'),
-        }).editor({ label: 'Site' }),
-        navigation: z.object({
+          keywords: text('Mots-clés', 'Séparés par des virgules'),
+        }),
+        navigation: group('Menu', {
           l_espace: text('Menu : L\'Espace'),
           apa: text('Menu : L\'APA'),
           autres_activités: text('Menu : Autres activités'),
           tarifs: text('Menu : Tarifs'),
           moi: text('Menu : À propos'),
           contact: text('Bouton : Contact'),
-        }).editor({ label: 'Menu' }),
-        header: z.object({
-          logo: media('Logo (en-tête)'),
-        }).editor({ label: 'En-tête' }),
-        footer: z.object({
-          logo: media('Logo (pied de page)'),
+        }),
+        header: group('En-tête', {
+          logo: media('Logo (en-tête)', 'SVG ou PNG'),
+        }),
+        footer: group('Pied de page', {
+          logo: media('Logo (pied de page)', 'SVG ou PNG'),
           copyright: text('Copyright'),
           address: text('Adresse'),
           zip_city: text('Code postal et ville'),
-          social: z.object({
-            facebook: text('Lien Facebook'),
-            instagram: text('Lien Instagram'),
-          }).editor({ label: 'Réseaux sociaux' }),
-        }).editor({ label: 'Pied de page' }),
+          social: group('Réseaux sociaux', {
+            facebook: text('Lien Facebook', 'Adresse complète, commençant par https://'),
+            instagram: text('Lien Instagram', 'Adresse complète, commençant par https://'),
+          }),
+        }),
       }),
     }),
 
@@ -65,55 +79,55 @@ export default defineContentConfig({
       schema: z.object({
         title: text('Nom de la page'),
         ...seo,
-        hero: z.object({
-          title: longText('Titre principal (retour à la ligne possible)'),
+        hero: group('Bienvenue (haut de page)', {
+          title: longText('Titre principal', 'Un retour à la ligne ici = un retour à la ligne sur le site'),
           subtitle: longText('Texte 1'),
           subtitle_2: longText('Texte 2'),
           cta: text('Texte du bouton'),
           img: media('Image'),
-        }).editor({ label: 'Bienvenue (haut de page)' }),
-        news: z.object({
+        }),
+        news: group('Actualités', {
           title: text('Titre'),
-          subtitle: text('Sur-titre'),
-          items: z.array(z.object({
+          subtitle: text('Sur-titre', 'Petit texte coloré au-dessus du titre'),
+          items: list('Actualités', z.object({
             description: longText('Actualité'),
-          })).editor({ label: 'Actualités (défilent automatiquement)' }),
-        }).editor({ label: 'Actualités' }),
-        apa: z.object({
+          }), 'Elles défilent automatiquement toutes les 5 secondes'),
+        }),
+        apa: group('L\'APA', {
           ...sectionHeader,
-          features: z.array(z.object({
+          features: list('Points clés', z.object({
             icon: featureIcon,
             title: text('Titre'),
             description: longText('Description'),
-          })).editor({ label: 'Points clés' }),
+          })),
           cta: text('Texte du bouton'),
           img: media('Image'),
-        }).editor({ label: 'L\'APA' }),
-        autres_activites: z.object({
+        }),
+        autres_activites: group('Autres activités', {
           ...sectionHeader,
-          activities: z.array(z.object({
+          activities: list('Activités', z.object({
             title: text('Nom de l\'activité'),
             description: longText('Description'),
-            description_2: longText('Description (suite, facultatif)'),
+            description_2: longText('Description (suite)', 'Facultatif, laisser vide si inutile'),
             img: media('Image'),
             icon: featureIcon,
-            link: z.object({
-              href: text('Lien (adresse)'),
+            link: group('Lien', {
+              href: text('Adresse du lien', 'Ex. /tarifs, /contact ou /tarifs#autres-activites'),
               label: text('Texte du lien'),
               icon: linkIcon,
-            }).editor({ label: 'Lien' }),
-          })).editor({ label: 'Activités' }),
-        }).editor({ label: 'Autres activités' }),
-        moi: z.object({
+            }),
+          })),
+        }),
+        moi: group('À propos de moi', {
           title: text('Titre'),
-          subtitle: text('Sur-titre'),
-          name: text('Prénom'),
+          subtitle: text('Sur-titre', 'Petit texte coloré au-dessus du titre'),
+          name: text('Prénom', 'Écrit en police manuscrite'),
           description: longText('Paragraphe 1'),
           description_2: longText('Paragraphe 2'),
           description_3: longText('Paragraphe 3'),
           description_4: longText('Paragraphe 4'),
           img: media('Photo'),
-        }).editor({ label: 'À propos de moi' }),
+        }),
       }),
     }),
 
@@ -122,37 +136,37 @@ export default defineContentConfig({
       source: 'tarifs.yml',
       schema: z.object({
         ...seo,
-        planning: z.object({
+        planning: group('Planning', {
           ...sectionHeader,
-          download_link: z.object({
-            href: media('Fichier du planning à télécharger'),
+          download_link: group('Téléchargement', {
+            href: media('Fichier du planning à télécharger', 'Choisissez la même image que « Image du planning »'),
             label: text('Texte du lien'),
-            icon: z.string().editor({ hidden: true }),
-          }).editor({ label: 'Téléchargement' }),
+            icon: edit(z.string(), { hidden: true }),
+          }),
           img: media('Image du planning'),
-        }).editor({ label: 'Planning' }),
-        apa: z.object({
+        }),
+        apa: group('Tarifs APA', {
           ...sectionHeader,
-          pricing: z.array(z.object({
+          pricing: list('Formules', z.object({
             title: text('Formule'),
-            prices: z.array(z.object({
-              amount: text('Prix'),
-              label: text('Précision (facultatif)'),
-            })).editor({ label: 'Prix' }),
-          })).editor({ label: 'Formules' }),
+            prices: list('Prix', z.object({
+              amount: text('Prix', 'Ex. 60€/mois'),
+              label: text('Précision', 'Facultatif, ex. (engagement trimestriel)'),
+            })),
+          })),
           disclaimer: longText('Mention en bas'),
-        }).editor({ label: 'Tarifs APA' }),
-        autres_activites: z.object({
+        }),
+        autres_activites: group('Tarifs autres activités', {
           ...sectionHeader,
-          activities: z.array(z.object({
+          activities: list('Activités', z.object({
             title: text('Activité'),
             price: text('Prix'),
             description: longText('Description'),
-            schedule: z.array(text('Créneau')).editor({ label: 'Créneaux' }),
-          })).editor({ label: 'Activités' }),
+            schedule: list('Créneaux', text('Créneau', 'Ex. Lundi de 18h à 19h')),
+          })),
           disclaimer_1: longText('Mention 1'),
           disclaimer_2: longText('Mention 2'),
-        }).editor({ label: 'Tarifs autres activités' }),
+        }),
       }),
     }),
 
@@ -164,22 +178,22 @@ export default defineContentConfig({
         subtitle: longText('Sous-titre'),
         ...seo,
         img: media('Image'),
-        form: z.object({
+        form: group('Formulaire', {
           firstname: text('Champ Prénom'),
-          firstnamePlaceholder: text('Exemple Prénom'),
+          firstnamePlaceholder: text('Exemple Prénom', 'Texte grisé dans le champ vide'),
           lastname: text('Champ Nom'),
-          lastnamePlaceholder: text('Exemple Nom'),
+          lastnamePlaceholder: text('Exemple Nom', 'Texte grisé dans le champ vide'),
           email: text('Champ Email'),
-          emailPlaceholder: text('Exemple Email'),
+          emailPlaceholder: text('Exemple Email', 'Texte grisé dans le champ vide'),
           phone: text('Champ Téléphone'),
-          phonePlaceholder: text('Exemple Téléphone'),
+          phonePlaceholder: text('Exemple Téléphone', 'Texte grisé dans le champ vide'),
           message: text('Champ Message'),
-          messagePlaceholder: text('Exemple Message'),
+          messagePlaceholder: text('Exemple Message', 'Texte grisé dans le champ vide'),
           submit: text('Bouton Envoyer'),
           sending: text('Texte pendant l\'envoi'),
           success: longText('Message de succès'),
           error: longText('Message d\'erreur'),
-        }).editor({ label: 'Formulaire' }),
+        }),
       }),
     }),
   },
