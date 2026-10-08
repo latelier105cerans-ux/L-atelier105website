@@ -1,0 +1,70 @@
+metaTitle: Atelier 105 - Tarifs & Planning
+metaDescription: Consultez nos tarifs et plannings disponibles
+planning:
+  title: Le planning des cours
+  subtitle: Horaires
+  description: Voici le planning des différentes activités à L’atelier 105.
+  download_link:
+    href: /planning-atelier-105.pdf
+    label: Télécharger le planning complet
+    icon: ArrowDownCircle
+  img: /img-planning.svg
+apa:
+  title: Activité Physique Adaptée (APA)
+  subtitle: À partir de 7€ la séance
+  description: Je vous propose des forfaits différents, pour progresser à votre rythme et selon vos disponibilités.
+  pricing:
+    - title: 1 séance par semaine
+      prices:
+        - amount: 60€/mois
+          label: ""
+        - amount: 55€/mois
+          label: (engagement trimestriel)
+        - amount: 50€/mois
+          label: (engagement semestriel)
+    - title: 2 séances par semaine
+      prices:
+        - amount: 75€/mois
+          label: ""
+        - amount: 70€/mois
+          label: (engagement trimestriel)
+        - amount: 65€/mois
+          label: (engagement semestriel)
+    - title: 3 séances par semaine
+      prices:
+        - amount: 90€/mois
+          label: ""
+        - amount: 85€/mois
+          label: (engagement trimestriel)
+        - amount: 80€/mois
+          label: (engagement semestriel)
+  disclaimer: Actuellement, la prescription d'APA n'ouvre pas de droits à un remboursement de la sécurité sociale. Néanmoins, n'hésitez pas à vous renseigner auprès de vos mutuelles ou organismes de retraite car certains peuvent prendre en charge ou financer une partie.
+autres_activites:
+  title: Les autres activités
+  subtitle: Tarifs
+  description: "Voici les tarifs pour les autres activités que je vous propose s à L'atelier 105 : Pilates, Circuit-training et créneau pour vos enfants/ados."
+  activities:
+    - title: Pilates
+      price: 200€ par an
+      description: "1 séance par semaine sur l'un des créneaux suivants :"
+      schedule:
+        - Lundi de 17h45 à 18h45
+        - Lundi de 18h à 19h
+        - Vendredi de 12h45 à 13h45
+    - title: Cardio Mix
+      price: 200€ par an
+      description: step, cardio boxe, cardio dance
+      schedule:
+        - Vendredi de 18h30 à 19h30
+    - title: Circuit-training
+      price: 200€ par an
+      description: "1 séance par semaine sur l'un des créneaux suivants :"
+      schedule:
+        - Mardi de 19h15 à 20h15
+    - title: Enfants/ados
+      price: 25€/mois
+      description: Sans engagement
+      schedule:
+        - Mercredi de 14h à 15h
+  disclaimer_1: L'abonnement au Pilates et au Circuit-training donne accès au cours de mi-septembre à début juillet.
+  disclaimer_2: Le créneau enfants/ados à pour objectif de faire adhérer vos enfants à la pratique d'une activité sportive, de manière ludique, et sans performance. L'abonnement est sans engagement.

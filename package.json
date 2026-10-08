@@ -10,8 +10,10 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/content": "^3.16.1",
     "lucide-vue-next": "^0.552.0",
     "nuxt": "^4.0.1",
+    "nuxt-studio": "^1.7.0",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1"
   },

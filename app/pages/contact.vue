@@ -31,13 +31,13 @@
                   v-if="submitStatus === 'success'"
                   class="p-4 bg-primary-green-100 text-primary-green-900 rounded-lg"
                 >
-                  Message envoyé avec succès ! Nous vous répondrons bientôt.
+                  {{ content.pages.contact.form.success }}
                 </div>
                 <div
                   v-if="submitStatus === 'error'"
                   class="p-4 bg-red-100 text-red-900 rounded-lg"
                 >
-                  Une erreur s'est produite. Veuillez réessayer.
+                  {{ content.pages.contact.form.error }}
                 </div>
 
                 <!-- Name -->
@@ -150,7 +150,7 @@
                   <span v-if="!isSubmitting">{{
                     content.pages.contact.form.submit
                   }}</span>
-                  <span v-else>Envoi en cours...</span>
+                  <span v-else>{{ content.pages.contact.form.sending }}</span>
                 </button>
               </form>
             </div>
@@ -177,7 +177,7 @@
 </template>
 
 <script setup lang="ts">
-const content = useContent();
+const content = await useContent();
 const config = useRuntimeConfig();
 
 const form = ref({
@@ -238,10 +238,10 @@ const handleSubmit = async () => {
 
 // SEO
 useSeoMeta({
-  title: content.pages.contact.metaTitle,
-  description: content.pages.contact.metaDescription,
-  ogTitle: content.pages.contact.metaTitle,
-  ogDescription: content.pages.contact.metaDescription,
+  title: () => content.value.pages.contact.metaTitle,
+  description: () => content.value.pages.contact.metaDescription,
+  ogTitle: () => content.value.pages.contact.metaTitle,
+  ogDescription: () => content.value.pages.contact.metaDescription,
   ogType: "website",
   twitterCard: "summary_large_image",
 });

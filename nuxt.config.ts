@@ -3,7 +3,34 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxt/content', 'nuxt-studio'],
+
+  content: {
+    experimental: {
+      // Use Node's built-in SQLite (Node >= 22.5) instead of the better-sqlite3 native package
+      sqliteConnector: 'native',
+    },
+  },
+
+  // Visual editor for the owner, available at /_studio. Publishing commits to GitHub,
+  // which triggers a Vercel deployment.
+  studio: {
+    route: '/_studio',
+    repository: {
+      provider: 'github',
+      owner: 'latelier105cerans-ux',
+      repo: 'L-atelier105website',
+      branch: 'main',
+    },
+    i18n: {
+      defaultLocale: 'fr',
+    },
+    git: {
+      commit: {
+        messagePrefix: 'content:',
+      },
+    },
+  },
 
   runtimeConfig: {
     public: {

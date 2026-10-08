@@ -1,0 +1,20 @@
+title: Contact
+subtitle: N'hésitez pas à me contacter pour toutes questions.
+metaTitle: Atelier 105 - Contact
+metaDescription: Contactez-nous pour plus d'informations
+img: /img-contact.png
+form:
+  firstname: Prénom
+  lastname: Nom
+  email: Email
+  phone: Téléphone
+  message: Votre message
+  submit: Envoyer
+  firstnamePlaceholder: Votre prénom
+  lastnamePlaceholder: Votre nom
+  emailPlaceholder: votre email
+  phonePlaceholder: votre téléphone
+  messagePlaceholder: Écrivez votre message ici...
+  sending: Envoi en cours...
+  success: Message envoyé avec succès ! Nous vous répondrons bientôt.
+  error: Une erreur s'est produite. Veuillez réessayer.

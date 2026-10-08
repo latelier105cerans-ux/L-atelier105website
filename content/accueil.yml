@@ -1,0 +1,91 @@
+title: Accueil
+metaTitle: Atelier 105 - Accueil
+metaDescription: Bienvenue à l'Atelier 105
+hero:
+  title: |-
+    Bienvenue à L’atelier 105,
+    La santé par le mouvement
+  subtitle: Votre Maison Sport-Santé à Cérans-Foulletourte ! Bouger mieux, vivre mieux. Pour tous les âges et tous les niveaux
+  subtitle_2: Activité Physique Adaptée (APA), Pilates, Circuit-training, Cardio mix, Activité physique pour enfants et Ateliers cuisine, je vous accueille dans un lieu chaleureux et dédié à votre santé.
+  cta: Voir les activités
+  img: /img-hero.svg
+news:
+  title: Les dernières actus de L’Atelier 105
+  subtitle: À venir
+  items:
+    - description: 📣 Prochain atelier cuisine 🥗 samedi 22 février 2025. Contactez-moi vite pour réserver votre place !
+    - description: 📣 Prochain atelier cuisine 🥗 samedi 22 février 2025. Contactez-moi vite pour réserver votre place !
+    - description: 📣 Prochain atelier cuisine 🥗 samedi 22 février 2025. Contactez-moi vite pour réserver votre place !
+    - description: 📣 Joyeux noël 🥗 samedi 22 février 2025. Contactez-moi vite pour réserver votre place !
+apa:
+  title: L'Activité Physique Adaptée (APA)
+  subtitle: Activité principale
+  description: L’Atelier 105 est labellisé Maison Sport-Santé par le Ministère des Sports et de la Santé. Cela garantit un accompagnement sécurisé, personnalisé et adapté à votre état de santé et vos objectifs !
+  features:
+    - icon: UserRound
+      title: Mouvement sur-mesure
+      description: Avant de débuter tout programme d’activité physique adaptée, nous réalisons un bilan complet. Ce temps d’échange permet d’évaluer vos capacités, comprendre vos besoins, votre histoire de santé et vos objectifs. Grâce à ce bilan, nous construisons ensemble un programme sur mesure, sécurisé et adapté pour vous !
+    - icon: HandHeart
+      title: Bien-être et prévention
+      description: ✔ Améliorer la condition physique (force, équilibre, endurance, souplesse).✔ Prévenir et gérer les maladies chroniques (diabète, maladies cardiovasculaires, cancer, etc.).✔ Réduire la douleur et améliorer la mobilité (arthrose, lombalgies, troubles neurologiques).✔ Favoriser l’autonomie et l’inclusion des personnes en situation de handicap.✔ Renforcer le bien-être mental et lutter contre le stress, l’anxiété et la dépression.
+    - icon: HeartHandshake
+      title: Sport & pathologies
+      description: "🔹 Personnes atteintes de maladies chroniques (diabète, obésité, cancer, maladies cardiaques…).🔹 Personnes en situation de handicap (moteur, sensoriel, mental…).🔹 Seniors souhaitant préserver leur autonomie et prévenir les chutes.🔹 Personnes en rééducation après une blessure ou une opération. 🔹 Femmes enceintes et post partum 🔹 Personnes en bonne santé souhaitant reprendre une activité physique "
+    - icon: Ticket
+      title: Votre séance
+      description: En petit groupe et avec bienveillance, je vous accompagne pour prendre soin de votre santé en toute sécurité.
+    - icon: Ticket
+      title: Prescription
+      description: " Envie de vous sentir mieux dans votre corps ? Rejoignez nos séances d’APA, conçues pour tous, quel que soit votre âge ou votre condition physique ! Une prescription médicale est nécessaire pour participer. Téléchargez le modèle officiel ici."
+  cta: Voir les tarifs et le planning
+  img: /img-hero.svg
+autres_activites:
+  title: Les autres activités de L’Atelier 105
+  subtitle: Et en plus
+  description: Des activités physiques adaptées à chacun de vos besoins et selon vos envies.
+  activities:
+    - title: Pilates
+      description: Le pilates est une méthode douce d'exercices physiques qui renforce les muscles profonds, améliore la posture, l'équilibre, et la flexibilité, tout en favorisant la connexion entre le corps et l'esprit.
+      description_2: Que vous soyez débutant(e)s ou plus avancé(e)s, je vous propose chaque semaine plusieurs créneaux dédiés à cette méthode.
+      img: /img_pilates.png
+      icon: Dumbbell
+      link:
+        href: /tarifs#autres-activites
+        label: Voir les tarifs et le planning
+        icon: ArrowRight
+    - title: Circuit-training
+      description: Le circuit training est une méthode d'entraînement dynamique qui combine des exercices de renforcement musculaire et cardiovasculaire, pour améliorer force, endurance et condition physique globale.
+      description_2: Ensemble, nous définirons vos objectifs et je vous accompagnerai dans votre remise en forme.
+      img: /img_circuit_training.png
+      icon: RotateCw
+      link:
+        href: /tarifs#autres-activites
+        label: Voir les tarifs et le planning
+        icon: ArrowRight
+    - title: Enfants/Ados
+      description: "Chaque mercredi, je vous propose 1h de sport pour enfants et ados. Un créneau pensé pour le bien-être de vos enfants et dans le respect de leur croissance. Objectifs : mettre du mouvement dans sa vie et se défouler dans la bonne humeur !"
+      description_2: ""
+      img: /img_kids_teenagers.png
+      icon: Baby
+      link:
+        href: /tarifs#autres-activites
+        label: Voir les tarifs et le planning
+        icon: ArrowRight
+    - title: Ateliers cuisine
+      description: "Parce qu’une bonne santé se passe aussi dans l’assiette, je vous propose des ateliers cuisine, en partenariat avec une diététicienne. Elle vous accompagnera dans la réalisation de recette simple et santé.Les + : repartez avec un livret de recettes et des conseils nutritionnels personnalisés !"
+      description_2: ""
+      img: /img_food.png
+      icon: Salad
+      link:
+        href: /tarifs#enfants-ados
+        label: Atelier ouvert à toutes et tous sur inscription par SMS au 07 77 31 70 94.
+        icon: ""
+moi:
+  title: "Bonjour, moi c’est "
+  subtitle: À propos de moi
+  name: Lou-Anne
+  description: "Je m’appelle Lou-Anne, et j’ai créé cet espace avec une idée simple en tête : permettre à chacun, quel que soit son âge ou son état de santé, de prendre soin de son corps et de son bien-être dans un environnement bienveillant et adapté."
+  description_2: Diplômée d’un Master STAPS en Activité Physique Adaptée et Santé (à Paris-Saclay), spécialisée en oncologie (à l’Univeristé de Poitiers) et formée à la méthode Pilates, j’ai à cœur de proposer des séances personnalisées, adaptées à vos besoins.
+  description_3: L’idée d’ouvrir L’Atelier 105 est née de ma conviction que bouger, à son rythme et avec plaisir, est essentiel pour rester en bonne santé et se sentir bien dans sa peau. Ici, chaque personne est unique, et je tiens à ce que nos séances soient personnalisées pour répondre à vos besoins spécifiques.
+  description_4: Ensemble, faisons du mouvement votre allié au quotidien !
+  img: /img_lou-anne.png

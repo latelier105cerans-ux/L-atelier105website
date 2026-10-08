@@ -154,7 +154,7 @@
 </template>
 
 <script setup lang="ts">
-const content = useContent();
+const content = await useContent();
 const isMenuOpen = ref(false);
 
 const toggleMenu = () => {

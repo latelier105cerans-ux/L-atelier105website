@@ -176,7 +176,7 @@
 <script setup lang="ts">
 import { Check, ArrowDownCircle } from "lucide-vue-next";
 
-const content = useContent();
+const content = await useContent();
 
 // Icon mapping
 const iconMap: Record<string, any> = {
@@ -185,10 +185,10 @@ const iconMap: Record<string, any> = {
 
 // SEO
 useSeoMeta({
-  title: content.pages.tarifs.metaTitle,
-  description: content.pages.tarifs.metaDescription,
-  ogTitle: content.pages.tarifs.metaTitle,
-  ogDescription: content.pages.tarifs.metaDescription,
+  title: () => content.value.pages.tarifs.metaTitle,
+  description: () => content.value.pages.tarifs.metaDescription,
+  ogTitle: () => content.value.pages.tarifs.metaTitle,
+  ogDescription: () => content.value.pages.tarifs.metaDescription,
   ogType: "website",
   twitterCard: "summary_large_image",
 });

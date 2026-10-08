@@ -174,5 +174,5 @@
 </template>
 
 <script setup lang="ts">
-const content = useContent();
+const content = await useContent();
 </script>

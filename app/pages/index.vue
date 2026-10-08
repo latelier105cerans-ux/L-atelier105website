@@ -11,9 +11,7 @@
           <!-- Background with text -->
           <div class="bg-gray-25 rounded-3xl p-6">
             <div class="flex flex-col gap-6">
-              <h1 class="font-semibold text-4xl">
-                Bienvenue à<br />L'atelier 105 !
-              </h1>
+              <h1 class="font-semibold text-4xl whitespace-pre-line">{{ content.pages.accueil.hero.title }}</h1>
               <p class="text-base">
                 {{ content.pages.accueil.hero.subtitle }}
               </p>
@@ -46,9 +44,7 @@
             <div class="flex items-center gap-10">
               <!-- Text on the left -->
               <div class="flex-1 flex flex-col gap-8">
-                <h1 class="font-semibold text-6xl">
-                  Bienvenue à<br />L'atelier 105 !
-                </h1>
+                <h1 class="font-semibold text-6xl whitespace-pre-line">{{ content.pages.accueil.hero.title }}</h1>
                 <p class="text-lg">
                   {{ content.pages.accueil.hero.subtitle }}
                 </p>
@@ -154,12 +150,12 @@
           <div class="hidden desktopview:flex flex-col gap-12">
             <!-- Three column layout -->
             <div class="grid grid-cols-3 gap-16 items-start">
-              <!-- Left Column: First 2 features -->
+              <!-- Left Column: first half of the features -->
               <div class="flex flex-col gap-12">
                 <div
                   v-for="(
                     feature, index
-                  ) in content.pages.accueil.apa.features.slice(0, 2)"
+                  ) in content.pages.accueil.apa.features.slice(0, featuresSplit)"
                   :key="index"
                   class="flex flex-col gap-4"
                 >
@@ -191,12 +187,12 @@
                 />
               </div>
 
-              <!-- Right Column: Last 2 features -->
+              <!-- Right Column: second half -->
               <div class="flex flex-col gap-12">
                 <div
                   v-for="(
                     feature, index
-                  ) in content.pages.accueil.apa.features.slice(2, 4)"
+                  ) in content.pages.accueil.apa.features.slice(featuresSplit)"
                   :key="index"
                   class="flex flex-col gap-4"
                 >
@@ -471,7 +467,12 @@ import {
   Salad,
   ArrowRight,
 } from "lucide-vue-next";
-const content = useContent();
+const content = await useContent();
+
+// Desktop: features split between the left and right columns around the image
+const featuresSplit = computed(() =>
+  Math.ceil(content.value.pages.accueil.apa.features.length / 2)
+);
 
 // Icon mapping for features
 const iconMap: Record<string, any> = {
@@ -488,10 +489,10 @@ const iconMap: Record<string, any> = {
 
 // SEO
 useSeoMeta({
-  title: content.pages.accueil.metaTitle,
-  description: content.pages.accueil.metaDescription,
-  ogTitle: content.pages.accueil.metaTitle,
-  ogDescription: content.pages.accueil.metaDescription,
+  title: () => content.value.pages.accueil.metaTitle,
+  description: () => content.value.pages.accueil.metaDescription,
+  ogTitle: () => content.value.pages.accueil.metaTitle,
+  ogDescription: () => content.value.pages.accueil.metaDescription,
   ogType: "website",
   twitterCard: "summary_large_image",
 });
