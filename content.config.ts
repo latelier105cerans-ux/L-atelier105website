@@ -91,6 +91,13 @@ export default defineContentConfig({
           subtitle: text('Sur-titre', 'Petit texte coloré au-dessus du titre'),
           items: list('Actualités', z.object({
             description: longText('Actualité'),
+            // Studio's date picker (input 'date' isn't in EditorOptions' type but Studio supports it);
+            // stays a plain string (YYYY-MM-DD or empty) so a cleared date never fails validation
+            until: edit(z.string(), {
+              label: 'Afficher jusqu\'au',
+              description: 'Facultatif. Le lendemain de cette date, l\'actualité disparaît du site.',
+              input: 'date' as EditorOptions['input'],
+            }).optional(),
           }), 'Elles défilent automatiquement toutes les 5 secondes'),
         }),
         apa: group('L\'APA', {

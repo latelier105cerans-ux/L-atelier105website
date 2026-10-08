@@ -27,10 +27,21 @@ apa:
       description: Avant de débuter tout programme d’activité physique adaptée, nous réalisons un bilan complet. Ce temps d’échange permet d’évaluer vos capacités, comprendre vos besoins, votre histoire de santé et vos objectifs. Grâce à ce bilan, nous construisons ensemble un programme sur mesure, sécurisé et adapté pour vous !
     - icon: HandHeart
       title: Bien-être et prévention
-      description: ✔ Améliorer la condition physique (force, équilibre, endurance, souplesse).✔ Prévenir et gérer les maladies chroniques (diabète, maladies cardiovasculaires, cancer, etc.).✔ Réduire la douleur et améliorer la mobilité (arthrose, lombalgies, troubles neurologiques).✔ Favoriser l’autonomie et l’inclusion des personnes en situation de handicap.✔ Renforcer le bien-être mental et lutter contre le stress, l’anxiété et la dépression.
+      description: |-
+        ✔ Améliorer la condition physique (force, équilibre, endurance, souplesse).
+        ✔ Prévenir et gérer les maladies chroniques (diabète, maladies cardiovasculaires, cancer, etc.).
+        ✔ Réduire la douleur et améliorer la mobilité (arthrose, lombalgies, troubles neurologiques).
+        ✔ Favoriser l’autonomie et l’inclusion des personnes en situation de handicap.
+        ✔ Renforcer le bien-être mental et lutter contre le stress, l’anxiété et la dépression.
     - icon: HeartHandshake
       title: Sport & pathologies
-      description: "🔹 Personnes atteintes de maladies chroniques (diabète, obésité, cancer, maladies cardiaques…).🔹 Personnes en situation de handicap (moteur, sensoriel, mental…).🔹 Seniors souhaitant préserver leur autonomie et prévenir les chutes.🔹 Personnes en rééducation après une blessure ou une opération. 🔹 Femmes enceintes et post partum 🔹 Personnes en bonne santé souhaitant reprendre une activité physique "
+      description: |-
+        🔹 Personnes atteintes de maladies chroniques (diabète, obésité, cancer, maladies cardiaques…).
+        🔹 Personnes en situation de handicap (moteur, sensoriel, mental…).
+        🔹 Seniors souhaitant préserver leur autonomie et prévenir les chutes.
+        🔹 Personnes en rééducation après une blessure ou une opération.
+        🔹 Femmes enceintes et post partum
+        🔹 Personnes en bonne santé souhaitant reprendre une activité physique
     - icon: Ticket
       title: Votre séance
       description: En petit groupe et avec bienveillance, je vous accompagne pour prendre soin de votre santé en toute sécurité.

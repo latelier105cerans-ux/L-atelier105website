@@ -4,7 +4,7 @@ Vous pouvez changer vous-même tous les textes, prix, horaires, actualités et p
 
 ## 1. Ouvrir l'éditeur
 
-1. Ouvrez votre navigateur (Chrome, Safari…) et allez sur **https://ADRESSE-DU-SITE/_studio**
+1. Ouvrez votre navigateur (Chrome, Safari…) et allez sur **https://l-atelier105website.vercel.app/_studio**
    (astuce : ajoutez cette page à vos favoris ou glissez-la sur votre bureau).
 2. Cliquez sur **Se connecter avec GitHub** et connectez-vous avec le compte `latelier105cerans-ux`.
 3. Le site s'affiche avec l'éditeur sur le côté.
@@ -18,6 +18,14 @@ Vous pouvez changer vous-même tous les textes, prix, horaires, actualités et p
    - `site` : menu, adresse, liens Facebook / Instagram
 2. Modifiez les champs. **L'aperçu du site se met à jour en direct.**
 3. Pour ajouter une actualité, un créneau ou une formule, utilisez le bouton **+** sous la liste.
+4. Dans les textes longs, un **retour à la ligne** (touche Entrée) s'affiche aussi sur le site :
+   pratique pour faire des listes (une ligne par « ✔ »).
+
+## Actualités avec date de fin
+
+Chaque actualité a un champ facultatif **« Afficher jusqu'au »**. Choisissez une date dans le calendrier :
+l'actualité reste visible ce jour-là, puis disparaît toute seule du site le lendemain.
+Laissez vide pour qu'elle reste affichée. Si toutes les actualités sont passées, le bloc Actualités est masqué.
 
 ## 3. Changer une photo
 

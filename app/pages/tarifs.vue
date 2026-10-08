@@ -12,10 +12,8 @@
             {{ content.pages.tarifs.apa.title }}
           </p>
           <p
-            class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl"
-          >
-            {{ content.pages.tarifs.apa.description }}
-          </p>
+            class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
+          >{{ content.pages.tarifs.apa.description }}</p>
         </div>
         <!-- priceCard -->
         <div
@@ -60,9 +58,7 @@
           </div>
         </div>
         <!-- disclaimer -->
-        <p class="text-lg font-normal text-gray-800">
-          {{ content.pages.tarifs.apa.disclaimer }}
-        </p>
+        <p class="text-lg font-normal text-gray-800 whitespace-pre-line">{{ content.pages.tarifs.apa.disclaimer }}</p>
       </div>
     </section>
 
@@ -81,10 +77,8 @@
             {{ content.pages.tarifs.autres_activites.title }}
           </p>
           <p
-            class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl"
-          >
-            {{ content.pages.tarifs.autres_activites.description }}
-          </p>
+            class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
+          >{{ content.pages.tarifs.autres_activites.description }}</p>
         </div>
         <!-- priceCard -->
         <div
@@ -106,9 +100,7 @@
             >
               {{ activity.price }}
             </p>
-            <p class="text-base text-center text-primary-green-600 mb-4">
-              {{ activity.description }}
-            </p>
+            <p class="text-base text-center text-primary-green-600 mb-4 whitespace-pre-line">{{ activity.description }}</p>
             <div class="flex flex-col gap-2">
               <div
                 v-for="(slot, slotIndex) in activity.schedule"
@@ -129,12 +121,8 @@
           </div>
         </div>
         <!-- disclaimer -->
-        <p class="text-lg font-normal text-gray-800">
-          {{ content.pages.tarifs.autres_activites.disclaimer_1 }}
-        </p>
-        <p class="text-lg font-normal text-gray-800 mt-10">
-          {{ content.pages.tarifs.autres_activites.disclaimer_2 }}
-        </p>
+        <p class="text-lg font-normal text-gray-800 whitespace-pre-line">{{ content.pages.tarifs.autres_activites.disclaimer_1 }}</p>
+        <p class="text-lg font-normal text-gray-800 mt-10 whitespace-pre-line">{{ content.pages.tarifs.autres_activites.disclaimer_2 }}</p>
       </div>
     </section>
     <!-- Planning -->
@@ -149,10 +137,8 @@
             {{ content.pages.tarifs.planning.title }}
           </p>
           <p
-            class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl"
-          >
-            {{ content.pages.tarifs.planning.description }}
-          </p>
+            class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
+          >{{ content.pages.tarifs.planning.description }}</p>
 
           <a
             :href="content.pages.tarifs.planning.download_link.href"

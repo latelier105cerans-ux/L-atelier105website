@@ -18,10 +18,8 @@
                   {{ content.pages.contact.title }}
                 </h1>
                 <p
-                  class="text-gray-600 font-normal text-lg desktopview:text-xl"
-                >
-                  {{ content.pages.contact.subtitle }}
-                </p>
+                  class="text-gray-600 font-normal text-lg desktopview:text-xl whitespace-pre-line"
+                >{{ content.pages.contact.subtitle }}</p>
               </div>
 
               <!-- Form -->
