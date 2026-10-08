@@ -85,4 +85,6 @@ Tant que vous n'avez pas publié, vos modifications ne sont pas en ligne : vous 
 
 - Une erreur ? Rien n'est perdu : chaque publication est enregistrée et peut être annulée.
   Contactez votre développeur avec une capture d'écran.
-- Le message « Conflit détecté » : attendez 2 minutes que la dernière publication soit en ligne, puis rechargez la page.
+- Le message **« Conflit détecté »** : le site a été mis à jour pendant que l'éditeur était ouvert.
+  1. Attendez 2 minutes, puis rechargez complètement la page (Cmd + Shift + R sur Mac, Ctrl + Shift + R sur PC).
+  2. Si le message reste, cliquez sur **« Annuler les changements »** sur le fichier concerné, puis refaites la modification.
