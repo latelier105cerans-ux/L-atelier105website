@@ -21,7 +21,7 @@
                 <p
                   data-studio="subtitle"
                   class="text-gray-600 font-normal text-lg desktopview:text-xl whitespace-pre-line"
-                >{{ content.pages.contact.subtitle }}</p>
+                ><RichText :text="content.pages.contact.subtitle" /></p>
               </div>
 
               <!-- Form -->

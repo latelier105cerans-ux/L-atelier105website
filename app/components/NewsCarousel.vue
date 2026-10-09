@@ -42,7 +42,7 @@
               :aria-hidden="index >= visibleItems.length || undefined"
             >
               <div class="px-4 text-center">
-                <p class="text-lg desktopview:text-xl text-gray-900 whitespace-pre-line">{{ item.description }}</p>
+                <p class="text-lg desktopview:text-xl text-gray-900 whitespace-pre-line"><RichText :text="item.description" /></p>
               </div>
             </div>
           </div>

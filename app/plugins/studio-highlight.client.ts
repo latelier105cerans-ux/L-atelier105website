@@ -4,7 +4,9 @@
 //      with the field name in a badge above it;
 //   2. shows the French labels and help texts of content.config.ts in the form (Studio 1.7.0
 //      ignores editor.label / editor.description and shows the raw keys: "Description 3");
-//   3. grows text areas with their content instead of cutting the text.
+//   3. grows text areas with their content instead of cutting the text;
+//   4. adds a formatting toolbar (bold, italic, size, link) above text areas, which types the
+//      small Markdown subset rendered on the site by components/RichText.vue.
 // It relies on Studio internals (input names, DOM structure): if they change, it simply does
 // nothing and Studio keeps working as before. Visitors are not affected (no <nuxt-studio>).
 //
@@ -46,7 +48,13 @@ const PAGE_CSS = `
 const STUDIO_CSS = `
 .studio-help { margin: 2px 0 0; font-size: 11px; line-height: 1.35; color: #78716c; }
 textarea[name] { resize: vertical; overflow: hidden; }
-input:not(:focus), textarea:not(:focus) { caret-color: transparent; }`;
+input:not(:focus), textarea:not(:focus) { caret-color: transparent; }
+.studio-format { display: flex; gap: 3px; margin: 0 0 4px; }
+.studio-format button {
+  min-width: 26px; height: 22px; padding: 0 6px; border: 1px solid #e7e5e4; border-radius: 4px;
+  background: #fff; color: #44403c; font: 600 12px/1 system-ui, sans-serif; cursor: pointer;
+}
+.studio-format button:hover { background: #f5f5f4; border-color: #d6d3d1; }`;
 
 // Repaint Studio's panel once the page stopped scrolling (same stale cursor issue)
 const repaint = (host: HTMLElement) => {
@@ -195,6 +203,95 @@ const translateForm = (root: ShadowRoot) => {
     const path = container ? containerPath(container) : rootPath(label);
     const key = path && childKey(path, originalText(label));
     relabel(label, key ? resolve(`${path}/${key}`) : undefined, label.closest('[data-slot="labelWrapper"]'));
+  }
+};
+
+// Formatting toolbar: wraps the selection with the markers of components/RichText.vue
+const FORMATS = [
+  { label: "G", title: "Gras (Cmd+B)", key: "b", before: "**", after: "**", style: "font-weight:800" },
+  { label: "I", title: "Italique (Cmd+I)", key: "i", before: "*", after: "*", style: "font-style:italic" },
+  { label: "A+", title: "Texte plus grand", before: "++", after: "++" },
+  { label: "A−", title: "Texte plus petit", before: "--", after: "--" },
+  { label: "🔗 Lien", title: "Lien (Cmd+K)", key: "k", link: true },
+] as const;
+
+// Not rendered as rich text on the site (Google)
+const PLAIN_FIELDS = /\/(metaDescription|metaTitle)$/;
+
+// Typed value must reach Vue: set it, then fire the "input" event its v-model listens to
+const setValue = (textarea: HTMLTextAreaElement, value: string, start: number, end: number) => {
+  textarea.value = value;
+  textarea.dispatchEvent(new Event("input", { bubbles: true }));
+  textarea.focus();
+  textarea.setSelectionRange(start, end);
+  autosize(textarea);
+};
+
+const linkHref = (raw: string) => {
+  const url = raw.trim();
+  if (/^(https?:\/\/|\/|#|mailto:|tel:)/i.test(url)) return url;
+  if (/^\S+@\S+\.\S+$/.test(url)) return `mailto:${url}`;
+  if (/^[\d\s+.]{6,}$/.test(url)) return `tel:${url.replace(/[^\d+]/g, "")}`;
+  return `https://${url}`;
+};
+
+const applyFormat = (textarea: HTMLTextAreaElement, format: (typeof FORMATS)[number]) => {
+  const { selectionStart: start, selectionEnd: end, value } = textarea;
+  const selected = value.slice(start, end);
+  if ("link" in format) {
+    const url = window.prompt("Adresse du lien (ex. https://…, /contact, un email ou un téléphone) :");
+    if (!url?.trim()) return textarea.focus();
+    const text = selected || "texte du lien";
+    const inserted = `[${text}](${linkHref(url)})`;
+    return setValue(textarea, value.slice(0, start) + inserted + value.slice(end), start + 1, start + 1 + text.length);
+  }
+  const { before, after } = format;
+  // Clicking again removes the formatting
+  if (value.slice(start - before.length, start) === before && value.slice(end, end + after.length) === after) {
+    return setValue(
+      textarea,
+      value.slice(0, start - before.length) + selected + value.slice(end + after.length),
+      start - before.length,
+      end - before.length
+    );
+  }
+  const text = selected || "texte";
+  setValue(textarea, value.slice(0, start) + before + text + after + value.slice(end), start + before.length, start + before.length + text.length);
+};
+
+// Idempotent: Studio may reuse a text area for another field when switching files
+const addToolbars = (root: ShadowRoot) => {
+  for (const textarea of root.querySelectorAll<HTMLTextAreaElement>("textarea[name]")) {
+    const wrapper = textarea.closest('[data-slot="root"]') ?? textarea;
+    const existing = wrapper.previousElementSibling?.classList.contains("studio-format")
+      ? wrapper.previousElementSibling
+      : null;
+    const plain = PLAIN_FIELDS.test(fieldPath(textarea) ?? "");
+    textarea.dataset.studioToolbar = plain ? "off" : "on";
+    if (plain) {
+      existing?.remove();
+      continue;
+    }
+    if (existing) continue;
+    const toolbar = document.createElement("div");
+    toolbar.className = "studio-format";
+    for (const format of FORMATS) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = format.label;
+      button.title = format.title;
+      if ("style" in format) button.style.cssText = format.style;
+      // mousedown: keep the focus (and the selection) in the text area
+      button.addEventListener("mousedown", (event) => event.preventDefault());
+      button.addEventListener("click", () => {
+        // The text area right after the toolbar at click time (Vue may have replaced it)
+        const next = toolbar.nextElementSibling;
+        const target = next instanceof HTMLTextAreaElement ? next : next?.querySelector("textarea");
+        if (target) applyFormat(target, format);
+      });
+      toolbar.appendChild(button);
+    }
+    wrapper.before(toolbar);
   }
 };
 
@@ -351,6 +448,16 @@ export default defineNuxtPlugin(() => {
       clearTimer = setTimeout(clear, 300);
     });
 
+    root.addEventListener("keydown", (event) => {
+      const textarea = event.composedPath()[0];
+      if (!(textarea instanceof HTMLTextAreaElement) || !(event.metaKey || event.ctrlKey)) return;
+      if (textarea.dataset.studioToolbar !== "on") return;
+      const format = FORMATS.find((f) => "key" in f && f.key === event.key.toLowerCase());
+      if (!format) return;
+      event.preventDefault();
+      applyFormat(textarea, format);
+    });
+
     root.addEventListener("input", (event) => {
       const target = event.composedPath()[0];
       if (target instanceof HTMLTextAreaElement) autosize(target);
@@ -366,6 +473,7 @@ export default defineNuxtPlugin(() => {
     const run = () => {
       scheduled = false;
       translateForm(root);
+      addToolbars(root);
       // New text areas only: resizing them all on every change makes the form jump
       root.querySelectorAll<HTMLTextAreaElement>("textarea[name]:not([data-studio-sized])").forEach((textarea) => {
         textarea.dataset.studioSized = "";

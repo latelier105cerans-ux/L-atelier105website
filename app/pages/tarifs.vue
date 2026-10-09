@@ -18,7 +18,7 @@
           <p
             class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
             data-studio-field="description"
-          >{{ content.pages.tarifs.apa.description }}</p>
+          ><RichText :text="content.pages.tarifs.apa.description" /></p>
         </div>
         <!-- priceCard -->
         <div
@@ -67,7 +67,7 @@
           </div>
         </div>
         <!-- disclaimer -->
-        <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="disclaimer">{{ content.pages.tarifs.apa.disclaimer }}</p>
+        <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="disclaimer"><RichText :text="content.pages.tarifs.apa.disclaimer" /></p>
       </div>
     </section>
 
@@ -90,7 +90,7 @@
           <p
             class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
             data-studio-field="description"
-          >{{ content.pages.tarifs.autres_activites.description }}</p>
+          ><RichText :text="content.pages.tarifs.autres_activites.description" /></p>
         </div>
         <!-- priceCard -->
         <div
@@ -115,7 +115,7 @@
             >
               {{ activity.price }}
             </p>
-            <p class="text-base text-center text-primary-green-600 mb-4 whitespace-pre-line" data-studio-field="description">{{ activity.description }}</p>
+            <p class="text-base text-center text-primary-green-600 mb-4 whitespace-pre-line" data-studio-field="description"><RichText :text="activity.description" /></p>
             <div class="flex flex-col gap-2">
               <div
                 v-for="(slot, slotIndex) in activity.schedule"
@@ -136,8 +136,8 @@
           </div>
         </div>
         <!-- disclaimer -->
-        <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="disclaimer_1">{{ content.pages.tarifs.autres_activites.disclaimer_1 }}</p>
-        <p class="text-lg font-normal text-gray-800 mt-10 whitespace-pre-line" data-studio-field="disclaimer_2">{{ content.pages.tarifs.autres_activites.disclaimer_2 }}</p>
+        <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="disclaimer_1"><RichText :text="content.pages.tarifs.autres_activites.disclaimer_1" /></p>
+        <p class="text-lg font-normal text-gray-800 mt-10 whitespace-pre-line" data-studio-field="disclaimer_2"><RichText :text="content.pages.tarifs.autres_activites.disclaimer_2" /></p>
       </div>
     </section>
     <!-- Planning -->
@@ -158,7 +158,7 @@
           <p
             class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
             data-studio-field="description"
-          >{{ content.pages.tarifs.planning.description }}</p>
+          ><RichText :text="content.pages.tarifs.planning.description" /></p>
 
           <a
             :href="content.pages.tarifs.planning.download_link.href"
