@@ -28,13 +28,18 @@
         <!-- Carousel Container -->
         <div class="w-full max-w-4xl overflow-hidden">
           <div
-            class="flex transition-transform duration-500 ease-in-out"
+            ref="track"
+            class="flex"
+            :class="{ 'transition-transform duration-500 ease-in-out': animate }"
             :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+            @transitionend="onTransitionEnd"
           >
+            <!-- The last slide is a copy of the first, so the loop always moves forward -->
             <div
-              v-for="(item, index) in visibleItems"
+              v-for="(item, index) in slides"
               :key="index"
               class="w-full flex-shrink-0"
+              :aria-hidden="index >= visibleItems.length || undefined"
             >
               <div class="px-4 text-center">
                 <p class="text-lg desktopview:text-xl text-gray-900 whitespace-pre-line">{{ item.description }}</p>
@@ -51,8 +56,8 @@
             @click="goToSlide(index)"
             class="w-3 h-3 rounded-full transition-colors"
             :class="
-              currentSlide === index
-                ? 'bg-secondary-earth-300'
+              activeIndex === index
+                ?'bg-secondary-earth-300'
                 : 'bg-secondary-earth-100 hover:bg-secondary-earth-200'
             "
             :aria-label="`Go to slide ${index + 1}`"
@@ -91,16 +96,42 @@ const visibleItems = computed(() =>
   )
 );
 
+const slides = computed(() =>
+  visibleItems.value.length > 1
+    ? [...visibleItems.value, visibleItems.value[0]!]
+    : visibleItems.value
+);
+
+const track = ref<HTMLElement | null>(null);
 const currentSlide = ref(0);
+const animate = ref(true);
+const activeIndex = computed(() => currentSlide.value % visibleItems.value.length);
 const autoPlayTimer = ref<ReturnType<typeof setInterval> | null>(null);
 
-const goToSlide = (index: number) => {
+// Once on the copy of the first slide, jump back to the real one without animation (invisible)
+const snapToStart = async () => {
+  if (currentSlide.value < visibleItems.value.length) return;
+  animate.value = false;
+  currentSlide.value = 0;
+  await nextTick();
+  void track.value?.offsetWidth; // force the browser to apply the jump before animations come back
+  animate.value = true;
+};
+
+const onTransitionEnd = (event: TransitionEvent) => {
+  if (event.target === event.currentTarget) snapToStart();
+};
+
+const goToSlide = async (index: number) => {
+  await snapToStart();
   currentSlide.value = index;
   resetAutoPlay();
 };
 
-const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % visibleItems.value.length;
+const nextSlide = async () => {
+  // transitionend may not fire in a background tab, so snap here too
+  await snapToStart();
+  currentSlide.value = Math.min(currentSlide.value + 1, slides.value.length - 1);
 };
 
 const startAutoPlay = () => {
