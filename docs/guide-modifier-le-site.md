@@ -40,13 +40,6 @@ Dans **Contenu**, les fichiers correspondent aux pages du site :
 
 - **Textes** : tapez directement. Un retour à la ligne (touche Entrée) s'affiche aussi sur le site,
   pratique pour les listes (une ligne par « ✔ »).
-- **Mise en forme** : au-dessus de chaque texte long, une petite barre permet de mettre en **G**ras,
-  en *I*talique, en plus grand (**A+**), en plus petit (**A−**) ou d'ajouter un **🔗 Lien**.
-  Sélectionnez les mots, puis cliquez sur le bouton (recliquez pour enlever la mise en forme).
-  Raccourcis : Cmd + B (gras), Cmd + I (italique), Cmd + K (lien).
-  Dans le texte, la mise en forme apparaît avec des signes (`**gras**`, `++grand++`…) : c'est normal,
-  le site affiche le résultat.
-  Pour un lien, tapez l'adresse d'un site (`www.exemple.fr`), d'une page (`/contact`), un email ou un téléphone.
 - **Photos** : cliquez sur le champ de l'image, puis choisissez une image existante ou envoyez-en une nouvelle
   (JPG, PNG ou WEBP, 10 Mo maximum, idéalement environ 2000 pixels de large).
 - **Listes** (actualités, activités, formules, créneaux, liens du menu) : **+** pour ajouter, la poubelle pour

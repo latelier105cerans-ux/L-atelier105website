@@ -12,9 +12,9 @@
           <!-- Background with text -->
           <div class="bg-gray-25 rounded-3xl p-6">
             <div class="flex flex-col gap-6">
-              <h1 class="font-semibold text-4xl whitespace-pre-line" data-studio-field="title"><RichText :text="content.pages.accueil.hero.title" /></h1>
-              <p class="text-base whitespace-pre-line" data-studio-field="subtitle"><RichText :text="content.pages.accueil.hero.subtitle" /></p>
-              <p class="text-base whitespace-pre-line" data-studio-field="subtitle_2"><RichText :text="content.pages.accueil.hero.subtitle_2" /></p>
+              <h1 class="font-semibold text-4xl whitespace-pre-line" data-studio-field="title">{{ content.pages.accueil.hero.title }}</h1>
+              <p class="text-base whitespace-pre-line" data-studio-field="subtitle">{{ content.pages.accueil.hero.subtitle }}</p>
+              <p class="text-base whitespace-pre-line" data-studio-field="subtitle_2">{{ content.pages.accueil.hero.subtitle_2 }}</p>
               <div class="flex justify-center">
                 <a
                   href="/#lapa"
@@ -43,9 +43,9 @@
             <div class="flex items-center gap-10">
               <!-- Text on the left -->
               <div class="flex-1 flex flex-col gap-8">
-                <h1 class="font-semibold text-6xl whitespace-pre-line" data-studio-field="title"><RichText :text="content.pages.accueil.hero.title" /></h1>
-                <p class="text-lg whitespace-pre-line" data-studio-field="subtitle"><RichText :text="content.pages.accueil.hero.subtitle" /></p>
-                <p class="text-lg whitespace-pre-line" data-studio-field="subtitle_2"><RichText :text="content.pages.accueil.hero.subtitle_2" /></p>
+                <h1 class="font-semibold text-6xl whitespace-pre-line" data-studio-field="title">{{ content.pages.accueil.hero.title }}</h1>
+                <p class="text-lg whitespace-pre-line" data-studio-field="subtitle">{{ content.pages.accueil.hero.subtitle }}</p>
+                <p class="text-lg whitespace-pre-line" data-studio-field="subtitle_2">{{ content.pages.accueil.hero.subtitle_2 }}</p>
                 <NuxtLink
                   to="/contact"
                   class="flex justify-center items-center bg-primary-green-400 h-11 px-6 rounded-full text-gray-25 hover:bg-primary-green-300 transition-colors w-fit"
@@ -95,7 +95,7 @@
             <p
               class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
               data-studio-field="description"
-            ><RichText :text="content.pages.accueil.apa.description" /></p>
+            >{{ content.pages.accueil.apa.description }}</p>
           </div>
 
           <!-- Mobile Layout -->
@@ -121,7 +121,7 @@
                 <h3 class="font-semibold text-xl text-gray-900" data-studio-field="title">
                   {{ feature.title }}
                 </h3>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description"><RichText :text="feature.description" /></p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ feature.description }}</p>
               </div>
             </div>
 
@@ -175,7 +175,7 @@
                     <h3 class="font-semibold text-xl text-gray-900" data-studio-field="title">
                       {{ feature.title }}
                     </h3>
-                    <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description"><RichText :text="feature.description" /></p>
+                    <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ feature.description }}</p>
                   </div>
                 </div>
               </div>
@@ -214,7 +214,7 @@
                     <h3 class="font-semibold text-xl text-gray-900" data-studio-field="title">
                       {{ feature.title }}
                     </h3>
-                    <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description"><RichText :text="feature.description" /></p>
+                    <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ feature.description }}</p>
                   </div>
                 </div>
               </div>
@@ -255,7 +255,7 @@
             <p
               class="text-gray-600 mt-4 desktopview:mt-5 font-normal text-lg desktopview:text-xl whitespace-pre-line"
               data-studio-field="description"
-            ><RichText :text="content.pages.accueil.autres_activites.description" /></p>
+            >{{ content.pages.accueil.autres_activites.description }}</p>
           </div>
 
           <!-- Mobile Layout -->
@@ -279,8 +279,8 @@
               <h2 class="text-2xl font-semibold text-gray-900" data-studio-field="title">
                 {{ activities.title }}
               </h2>
-              <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description"><RichText :text="activities.description" /></p>
-              <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2"><RichText :text="activities.description_2" /></p>
+              <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ activities.description }}</p>
+              <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2">{{ activities.description_2 }}</p>
               <div>
                 <NuxtLink
                   v-if="activities.link"
@@ -330,8 +330,8 @@
                 <h2 class="text-3xl font-semibold text-gray-900" data-studio-field="title">
                   {{ activities.title }}
                 </h2>
-                <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="description"><RichText :text="activities.description" /></p>
-                <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2"><RichText :text="activities.description_2" /></p>
+                <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ activities.description }}</p>
+                <p class="text-lg font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2">{{ activities.description_2 }}</p>
                 <div>
                   <NuxtLink
                     v-if="activities.link"
@@ -398,10 +398,10 @@
                 </p>
               </div>
               <div class="flex flex-col gap-4">
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description"><RichText :text="content.pages.accueil.moi.description" /></p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2"><RichText :text="content.pages.accueil.moi.description_2" /></p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_3"><RichText :text="content.pages.accueil.moi.description_3" /></p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_4"><RichText :text="content.pages.accueil.moi.description_4" /></p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ content.pages.accueil.moi.description }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2">{{ content.pages.accueil.moi.description_2 }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_3">{{ content.pages.accueil.moi.description_3 }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_4">{{ content.pages.accueil.moi.description_4 }}</p>
               </div>
             </div>
             <!-- Image -->
@@ -439,10 +439,10 @@
                 </p>
               </div>
               <div class="flex flex-col gap-4">
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description"><RichText :text="content.pages.accueil.moi.description" /></p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2"><RichText :text="content.pages.accueil.moi.description_2" /></p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_3"><RichText :text="content.pages.accueil.moi.description_3" /></p>
-                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_4"><RichText :text="content.pages.accueil.moi.description_4" /></p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description">{{ content.pages.accueil.moi.description }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_2">{{ content.pages.accueil.moi.description_2 }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_3">{{ content.pages.accueil.moi.description_3 }}</p>
+                <p class="text-base font-normal text-gray-800 whitespace-pre-line" data-studio-field="description_4">{{ content.pages.accueil.moi.description_4 }}</p>
               </div>
             </div>
           </div>
