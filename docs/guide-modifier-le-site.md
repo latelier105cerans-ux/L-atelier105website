@@ -25,7 +25,8 @@ Dans **Contenu**, les fichiers correspondent aux pages du site :
 
 | Fichier | Ce qu'il contient |
 |---|---|
-| `accueil` | Bienvenue, actualités, APA, autres activités, à propos |
+| dossier `pages` | Les pages faites de blocs : `index` (l'accueil) et celles que vous créez |
+| `actualites` | Les actualités (affichées sur l'accueil et la page contact) |
 | `tarifs` | Tarifs APA, tarifs des autres activités, planning |
 | `contact` | Titre, texte et formulaire de la page contact |
 | `menu-et-pied-de-page` | Logo, liens du menu, bouton vert, adresse, téléphone, email, Facebook / Instagram |
@@ -36,7 +37,32 @@ Dans **Contenu**, les fichiers correspondent aux pages du site :
 - Cliquez dans un champ : le texte correspondant est **entouré en orange** sur le site, avec le nom du champ
   au-dessus, et la page défile jusqu'à lui.
 
-## 3. Modifier
+## 3. Les pages en blocs (accueil et nouvelles pages)
+
+Une page est une suite de **blocs** : un haut de page « Bienvenue », des sections, du texte et des photos,
+des grilles de cartes, une FAQ, des témoignages… Vous écrivez directement dedans, comme dans un traitement de texte.
+
+- **Ouvrir la page affichée** : bouton **« Editer la page »** en bas de l'éditeur.
+- **Cliquer sur un bloc du site** le sélectionne dans l'éditeur (Cmd + clic pour suivre un lien).
+- **Écrire** : tapez directement. Sélectionnez du texte pour le mettre en gras, en italique ou en lien.
+  - *Titre 1* : le grand titre de la page (dans « Bienvenue »)
+  - *Titre 2* : le titre d'une section, *Titre 3* : le titre d'une carte ou d'une question
+  - *Titre 4* : le petit sur-titre coloré au-dessus d'un titre
+  - Dans un titre, l'*italique* s'écrit en écriture manuscrite (comme « *Lou-Anne* »)
+- **Ajouter un bloc** : tapez **« / »** et choisissez dans la liste (« Sections de page » ou « Éléments »).
+  Le bloc arrive avec un exemple de contenu : remplacez-le par le vôtre.
+  Placez les éléments (Grille, Carte, Bouton, FAQ…) **dans** une section, à l'endroit où vous tapez « / ».
+- **Régler un bloc** (photo, couleur de fond, côté de la photo, icône, lien d'un bouton…) : survolez le nom
+  du bloc dans l'éditeur et cliquez sur l'icône des réglages.
+- **Déplacer** un bloc : poignée ⠿ à gauche, à faire glisser. **Supprimer** : icône poubelle sur son nom.
+- **Ancre** : donnez un nom à une section (ex. `lapa`) pour qu'un lien du menu y mène (`/#lapa`).
+
+**Créer une page** : dans le dossier `pages`, dupliquez la page **« modele »** (elle montre tous les blocs
+et elle est cachée), renommez-la (ex. `stages` → adresse `/stages`), puis gardez les blocs utiles.
+Dans **Paramètres de la page** : le titre et la description Google, et **« Masquer la page »** pour la
+préparer sans que les visiteurs la voient. Ajoutez-la ensuite au menu (`menu-et-pied-de-page` → *Liens du menu*).
+
+## 4. Modifier les autres fichiers
 
 - **Textes** : tapez directement. Un retour à la ligne (touche Entrée) s'affiche aussi sur le site,
   pratique pour les listes (une ligne par « ✔ »).
@@ -73,7 +99,7 @@ puis dans `tarifs` → *Planning*, choisissez cette image pour **Image du planni
 Les deux derniers champs de chaque page (**Titre Google** et **Description Google**) ne sont pas visibles
 sur la page : ils servent à l'onglet du navigateur et aux résultats de recherche Google.
 
-## 4. Publier
+## 5. Publier
 
 1. Cliquez sur **Publier**, vérifiez la liste des changements puis **Valider**.
 2. Écrivez une courte description (ex. « Nouveaux horaires pilates ») et confirmez.

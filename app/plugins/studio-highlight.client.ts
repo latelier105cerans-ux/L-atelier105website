@@ -4,7 +4,10 @@
 //      with the field name in a badge above it;
 //   2. shows the French labels and help texts of content.config.ts in the form (Studio 1.7.0
 //      ignores editor.label / editor.description and shows the raw keys: "Description 3");
-//   3. grows text areas with their content instead of cutting the text.
+//   3. grows text areas with their content instead of cutting the text;
+//   4. pages built from blocks (content/pages/*.md, Studio's visual editor): outlines the block
+//      where the cursor is, selects in the editor the block clicked on the page, fills a block
+//      just inserted with an example (utils/studioBlocks.ts) and shows French block names.
 // It relies on Studio internals (input names, DOM structure): if they change, it simply does
 // nothing and Studio keeps working as before. Visitors are not affected (no <nuxt-studio>).
 //
@@ -19,10 +22,17 @@
 //   data-studio-list="list"                            a whole list (fallback)
 //   data-studio-field="field ..."                      a text/image inside a section or item
 
+import { BLOCK_LABELS, PROP_LABELS, blockJSON, blockKey, blockLabel, hasPreset, isNewBlock } from "~/utils/studioBlocks";
+
 // ---------------------------------------------------------------------------------------------
 // Styles (app/assets/css/main.css is not loaded by @nuxtjs/tailwindcss, so they live here)
 
 const PAGE_CSS = `
+[data-bloc-hover] {
+  outline: 2px dashed rgb(232 131 58 / 0.45);
+  outline-offset: 4px;
+  cursor: pointer;
+}
 [data-studio-highlight] {
   outline: 3px dashed #e8833a !important;
   outline-offset: 4px;
@@ -191,10 +201,66 @@ const translateForm = (root: ShadowRoot) => {
   for (const label of root.querySelectorAll<HTMLElement>('label[data-slot="label"]')) {
     const fieldRoot = fieldRootOf(label);
     if (!fieldRoot) continue;
+    const original = originalText(label);
     const container = containerOf(fieldRoot);
     const path = container ? containerPath(container) : rootPath(label);
-    const key = path && childKey(path, originalText(label));
+    const key = path && childKey(path, original);
     relabel(label, key ? resolve(`${path}/${key}`) : undefined, label.closest('[data-slot="labelWrapper"]'));
+    // "class" is not a setting for the owner
+    if (original === "Class" && label.closest('[role="dialog"]')) {
+      fieldRoot.style.display = "none";
+      continue;
+    }
+    // Settings of a block (no schema): French names of the props
+    const french = !label.dataset.studioKey && PROP_LABELS[original];
+    if (french) {
+      label.dataset.studioKey = original;
+      label.textContent = french;
+    }
+  }
+  // Block names: "/" menu and block headers in the visual editor ("Texte Image" -> "Texte + image"),
+  // and the title of a block's settings ("Texte Image properties" -> "Réglages : Texte + image")
+  for (const el of root.querySelectorAll<HTMLElement>("span, div")) {
+    if (el.children.length || el.dataset.studioKey) continue;
+    const name = el.textContent?.trim() ?? "";
+    const settings = name.match(/^(.+) properties$/);
+    if (settings && BLOCK_LABELS[blockKey(settings[1])]) {
+      el.dataset.studioKey = name;
+      el.textContent = `Réglages : ${BLOCK_LABELS[blockKey(settings[1])]}`;
+      continue;
+    }
+    const french = BLOCK_LABELS[blockKey(name)];
+    if (!french || french === name) continue;
+    const isBlockHeader = typeof el.className === "string" && el.className.includes("font-mono");
+    const inMenu = el.closest('[role="option"], [role="menuitem"], [role="menu"], [role="listbox"]');
+    if (!isBlockHeader && !inMenu) continue;
+    el.dataset.studioKey = name;
+    el.textContent = french;
+  }
+};
+
+// A block setting left to its default shows "Sélectionner une option…": show the default instead
+// ("blanc (par défaut)"), read from the block's metadata that Studio already has
+const showDefaultChoices = (root: ShadowRoot) => {
+  const components: any[] = (window as any).useStudioHost?.()?.meta?.editor?.components?.get?.() ?? [];
+  for (const dialog of root.querySelectorAll<HTMLElement>('[role="dialog"]')) {
+    const title = Array.from(dialog.querySelectorAll<HTMLElement>("span, div")).find((el) =>
+      el.dataset.studioKey?.endsWith(" properties")
+    );
+    const name = title?.dataset.studioKey?.replace(/ properties$/, "");
+    const component = components.find((c) => blockKey(c.name) === blockKey(name));
+    if (!component) continue;
+    for (const placeholder of dialog.querySelectorAll<HTMLElement>('button[role="combobox"] [data-slot="placeholder"]')) {
+      let field = placeholder.parentElement;
+      while (field && !field.querySelector(LABEL)) field = field.parentElement;
+      const label = field?.querySelector<HTMLElement>(LABEL);
+      const prop = originalText(label);
+      const meta = component.meta?.props?.find((p: any) => blockKey(p.name) === blockKey(prop));
+      if (!meta?.default) continue;
+      const value = String(meta.default).replace(/^["']|["']$/g, "");
+      const text = `${value} (par défaut)`;
+      if (placeholder.textContent !== text) placeholder.textContent = text;
+    }
   }
 };
 
@@ -273,6 +339,52 @@ const findTarget = (name: string, path: EventTarget[]) => {
 };
 
 // ---------------------------------------------------------------------------------------------
+// Pages built from blocks: Studio's TipTap editor <-> the page
+// The editor is reachable from its DOM (TipTap sets `view.dom.editor`). Blocks are matched by
+// order: the n-th block of the document (depth-first) is the n-th [data-bloc] of the page, as
+// every block renders exactly one [data-bloc] root, its inner blocks after it.
+
+type TiptapEditor = any; // TipTap's Editor (not a direct dependency of the site)
+
+const editorIn = (root: ShadowRoot): TiptapEditor | undefined =>
+  (root.querySelector(".ProseMirror") as any)?.editor;
+
+const pageBlocks = () => Array.from(document.querySelectorAll<HTMLElement>("[data-content-root] [data-bloc]"));
+
+const editorBlocks = (editor: TiptapEditor) => {
+  const blocks: { node: any; pos: number }[] = [];
+  editor.state.doc.descendants((node: any, pos: number) => {
+    if (node.type.name === "element") blocks.push({ node, pos });
+  });
+  return blocks;
+};
+
+// Block around the cursor (or the selected block itself)
+const selectedBlock = (editor: TiptapEditor) => {
+  const selection = editor.state.selection;
+  if (selection.node?.type.name === "element") return { node: selection.node, pos: selection.from };
+  const { $from } = selection;
+  for (let depth = $from.depth; depth > 0; depth--) {
+    if ($from.node(depth).type.name === "element") return { node: $from.node(depth), pos: $from.before(depth) };
+  }
+};
+
+// Place the cursor in the first line of a block, and show it in the editor
+const selectInEditor = (editor: TiptapEditor, block: { node: any; pos: number }) => {
+  let textPos: number | undefined;
+  block.node.descendants((child: any, offset: number) => {
+    if (textPos !== undefined) return false;
+    if (child.isTextblock) {
+      textPos = block.pos + 1 + offset + 1;
+      return false;
+    }
+    return true;
+  });
+  editor.chain().focus().setTextSelection(textPos ?? block.pos + 1).run();
+  (editor.view.nodeDOM(block.pos) as HTMLElement | null)?.scrollIntoView({ behavior: "smooth", block: "center" });
+};
+
+// ---------------------------------------------------------------------------------------------
 
 const addStyle = (parent: Node, css: string) => {
   const style = document.createElement("style");
@@ -308,6 +420,125 @@ export default defineNuxtPlugin(() => {
     badge.remove();
   };
 
+  // Outline an element of the page, with a badge naming what is being edited
+  const highlight = (target: HTMLElement, label: string, root: ShadowRoot) => {
+    clearTimeout(clearTimer);
+    if (target !== current) {
+      clear();
+      current = target;
+      // An attribute, not a class: Vue rewrites `class` on elements with a :class binding
+      target.setAttribute("data-studio-highlight", "");
+      // A FAQ question being edited: show its answer
+      if (target instanceof HTMLDetailsElement) target.open = true;
+      // Only scroll when needed: the page doesn't move while editing a section already in view
+      const rect = target.getBoundingClientRect();
+      const inView = rect.top >= 80 && rect.bottom <= window.innerHeight; // 80px: sticky header
+      if (!inView) {
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+        const host = root.host as HTMLElement;
+        if ("onscrollend" in window) window.addEventListener("scrollend", () => repaint(host), { once: true });
+        else setTimeout(() => repaint(host), 700);
+      }
+    }
+    badge.textContent = `✏️ ${label}`;
+    if (!badge.isConnected) document.body.appendChild(badge);
+    cancelAnimationFrame(frame);
+    placeBadge();
+  };
+
+  // --- Pages built from blocks ---------------------------------------------------------------
+  let studioRoot: ShadowRoot | undefined;
+  const watchedEditors = new WeakSet<object>();
+
+  // The visual editor of a block page, when the Studio panel is open
+  const activeEditor = () =>
+    studioRoot && document.body.hasAttribute("data-expand-sidebar") ? editorIn(studioRoot) : undefined;
+
+  const highlightSelectedBlock = (editor: TiptapEditor) => {
+    const block = selectedBlock(editor);
+    if (!block || !studioRoot) return;
+    const index = editorBlocks(editor).findIndex((b) => b.pos === block.pos);
+    const target = pageBlocks()[index];
+    if (target) highlight(target, blockLabel(block.node.attrs.tag), studioRoot);
+  };
+
+  // A block inserted with "/" (or the drag handle) gets its example content. It also works around
+  // a Studio 1.7.0 bug: its editor ignores a change made while it converts the previous one, and
+  // the "/" menu makes two at once (remove "/grille", insert the block), so the block is lost
+  // when Studio reloads its draft. Once Studio is done, the block is put back if needed, in a
+  // single change that Studio saves normally.
+  const handleInsertedBlocks = (editor: TiptapEditor, transaction: any) => {
+    if (!transaction.docChanged || transaction.getMeta("studio-preset")) return;
+    const inserted: { pos: number; tag: string }[] = [];
+    transaction.steps.forEach((step: any, index: number) => {
+      const slice = step.slice?.content;
+      // Studio reloading the whole document (it starts with the frontmatter) is not an insertion
+      if (!slice?.size || slice.firstChild?.type.name === "frontmatter") return;
+      const after = transaction.mapping.slice(index + 1);
+      const from = after.map(step.from);
+      const to = Math.min(after.map(step.from + step.slice.size), transaction.doc.content.size);
+      transaction.doc.nodesBetween(from, to, (node: any, pos: number) => {
+        if (isNewBlock(node)) inserted.push({ pos, tag: node.attrs.tag });
+      });
+    });
+    if (inserted.length) setTimeout(() => settleInsertedBlocks(editor, inserted), 400);
+  };
+
+  const settleInsertedBlocks = (editor: TiptapEditor, inserted: { pos: number; tag: string }[]) => {
+    for (const { pos, tag } of [...inserted].sort((a, b) => b.pos - a.pos)) {
+      const node = pos <= editor.state.doc.content.size ? editor.state.doc.nodeAt(pos) : null;
+      const stillThere = node?.type.name === "element" && blockKey(node.attrs.tag) === blockKey(tag);
+      if (stillThere && !(isNewBlock(node) && hasPreset(tag))) continue;
+      const json = blockJSON(tag);
+      editor
+        .chain()
+        .command(({ tr }: any) => {
+          tr.setMeta("studio-preset", true);
+          return true;
+        })
+        .insertContentAt(
+          stillThere ? { from: pos, to: pos + node.nodeSize } : Math.min(pos, editor.state.doc.content.size),
+          json
+        )
+        .run();
+    }
+  };
+
+  const watchEditor = (root: ShadowRoot) => {
+    const editor = editorIn(root);
+    if (!editor || watchedEditors.has(editor)) return;
+    watchedEditors.add(editor);
+    editor.on("selectionUpdate", () => highlightSelectedBlock(editor));
+    editor.on("focus", () => highlightSelectedBlock(editor));
+    editor.on("transaction", ({ transaction }: any) => handleInsertedBlocks(editor, transaction));
+  };
+
+  // Clicking a block of the page selects it in the editor (Cmd/Ctrl-click follows the link)
+  document.addEventListener(
+    "click",
+    (event) => {
+      const editor = activeEditor();
+      const block = (event.target as Element | null)?.closest?.<HTMLElement>("[data-content-root] [data-bloc]");
+      if (!editor || !block || event.metaKey || event.ctrlKey) return;
+      event.preventDefault();
+      const match = editorBlocks(editor)[pageBlocks().indexOf(block)];
+      if (match) selectInEditor(editor, match);
+    },
+    true
+  );
+
+  // Blocks of the page are outlined on hover while the editor is open: they can be clicked
+  let hovered: HTMLElement | undefined;
+  document.addEventListener("mouseover", (event) => {
+    const block = activeEditor()
+      ? (event.target as Element | null)?.closest?.<HTMLElement>("[data-content-root] [data-bloc]") ?? undefined
+      : undefined;
+    if (block === hovered) return;
+    hovered?.removeAttribute("data-bloc-hover");
+    hovered = block;
+    block?.setAttribute("data-bloc-hover", "");
+  });
+
   // Listen inside Studio's shadow root: when the focus moves between two of its fields, the
   // focus events don't reach the page (seen from outside, <nuxt-studio> keeps the focus)
   const listen = (root: ShadowRoot) => {
@@ -315,34 +546,14 @@ export default defineNuxtPlugin(() => {
       const path = event.composedPath();
       const input = path[0];
       if (!(input instanceof Element)) return;
+      // The visual editor of block pages has its own sync (selection -> block)
+      if (input.closest(".ProseMirror")) return;
       if (input instanceof HTMLTextAreaElement) autosize(input);
       const name = fieldPath(input);
       if (!name) return;
 
       const target = findTarget(name, path);
-      if (!target) return;
-
-      clearTimeout(clearTimer);
-      if (target !== current) {
-        clear();
-        current = target;
-        // An attribute, not a class: Vue rewrites `class` on elements with a :class binding
-        target.setAttribute("data-studio-highlight", "");
-        // Only scroll when needed: the page doesn't move while editing a section already in view
-        const rect = target.getBoundingClientRect();
-        const inView = rect.top >= 80 && rect.bottom <= window.innerHeight; // 80px: sticky header
-        if (!inView) {
-          target.scrollIntoView({ behavior: "smooth", block: "center" });
-          const host = root.host as HTMLElement;
-          if ("onscrollend" in window) window.addEventListener("scrollend", () => repaint(host), { once: true });
-          else setTimeout(() => repaint(host), 700);
-        }
-      }
-      const label = editorOf(resolve(name))?.label ?? name.split("/").pop();
-      badge.textContent = `✏️ ${label}`;
-      if (!badge.isConnected) document.body.appendChild(badge);
-      cancelAnimationFrame(frame);
-      placeBadge();
+      if (target) highlight(target, editorOf(resolve(name))?.label ?? name.split("/").pop() ?? "", root);
     });
 
     root.addEventListener("focusout", () => {
@@ -359,13 +570,16 @@ export default defineNuxtPlugin(() => {
 
   // Studio's form: French labels and text area sizes, re-applied when it re-renders
   const enhance = async (root: ShadowRoot) => {
+    studioRoot = root;
     addStyle(root, STUDIO_CSS);
     listen(root);
     await loadSchemas();
     let scheduled = false;
     const run = () => {
       scheduled = false;
+      watchEditor(root);
       translateForm(root);
+      showDefaultChoices(root);
       // New text areas only: resizing them all on every change makes the form jump
       root.querySelectorAll<HTMLTextAreaElement>("textarea[name]:not([data-studio-sized])").forEach((textarea) => {
         textarea.dataset.studioSized = "";

@@ -33,13 +33,6 @@ const pageMeta = {
 }
 const href = () => text('Lien', 'Ex. /tarifs, /contact, /#lapa (section de l\'accueil) ou https://… (autre site)')
 
-// Icons available in the pages' iconMap (lucide-vue-next)
-const featureIcon = edit(
-  z.enum(['UserRound', 'HandHeart', 'HeartHandshake', 'Ticket', 'Dumbbell', 'RotateCw', 'Baby', 'Salad']),
-  { label: 'Icône' },
-)
-const linkIcon = edit(z.enum(['ArrowRight', '']), { label: 'Icône du lien', description: 'ArrowRight = flèche, vide = pas d\'icône' })
-
 const sectionHeader = {
   title: text('Titre'),
   subtitle: text('Sur-titre', 'Petit texte coloré au-dessus du titre'),
@@ -86,19 +79,30 @@ export default defineContentConfig({
       }),
     }),
 
-    accueil: defineCollection({
-      // 'page' gives each file a path, so Studio opens the matching page in the preview (and vice versa)
+    // Site pages built from blocks (Markdown + MDC components of app/components/content),
+    // edited in Studio's visual editor. content/pages/index.md is the home page, any other file
+    // is a page at its own address (content/pages/stages.md -> /stages)
+    pages: defineCollection({
       type: 'page',
-      source: 'accueil.yml',
+      source: { include: 'pages/**/*.md', prefix: '/' },
       schema: z.object({
-        ...pageMeta,
-        hero: group('Bienvenue (haut de page)', {
-          title: longText('Titre principal', 'Un retour à la ligne ici = un retour à la ligne sur le site'),
-          subtitle: longText('Texte 1'),
-          subtitle_2: longText('Texte 2'),
-          cta: text('Texte du bouton'),
-          img: media('Image'),
-        }),
+        title: text('Titre de la page', 'Affiché dans l\'onglet du navigateur et dans les résultats Google'),
+        description: longText('Description Google', 'Affichée sous le titre dans les résultats Google'),
+        // false by default (a missing boolean is stored as false), like the other "Masquer" switches
+        masquer: edit(z.boolean(), {
+          label: 'Masquer la page',
+          description: 'Activez pour cacher la page aux visiteurs (elle reste visible dans l\'éditeur)',
+        }).optional(),
+        seo: edit(z.any(), { hidden: true }).optional(),
+        navigation: edit(z.any(), { hidden: true }).optional(),
+      }),
+    }),
+
+    // News shown by the "Actualités" block and on the contact page (one place for all pages)
+    actualites: defineCollection({
+      type: 'data',
+      source: 'actualites.yml',
+      schema: z.object({
         news: group('Actualités', {
           title: text('Titre'),
           subtitle: text('Sur-titre', 'Petit texte coloré au-dessus du titre'),
@@ -114,46 +118,6 @@ export default defineContentConfig({
             }).optional(),
           }), 'Elles défilent automatiquement toutes les 5 secondes'),
         }),
-        apa: group('L\'APA', {
-          hidden: hidden('toute cette section'),
-          ...sectionHeader,
-          features: list('Points clés', z.object({
-            icon: featureIcon,
-            title: text('Titre'),
-            description: longText('Description'),
-          })),
-          cta: text('Texte du bouton'),
-          img: media('Image'),
-        }),
-        autres_activites: group('Autres activités', {
-          hidden: hidden('toute cette section'),
-          ...sectionHeader,
-          activities: list('Activités', z.object({
-            hidden: hidden('cette activité'),
-            title: text('Nom de l\'activité'),
-            description: longText('Description'),
-            description_2: longText('Description (suite)', 'Facultatif, laisser vide si inutile'),
-            img: media('Image'),
-            icon: featureIcon,
-            link: group('Lien', {
-              href: text('Adresse du lien', 'Ex. /tarifs, /contact ou /tarifs#autres-activites'),
-              label: text('Texte du lien'),
-              icon: linkIcon,
-            }),
-          })),
-        }),
-        moi: group('À propos de moi', {
-          hidden: hidden('toute cette section'),
-          title: text('Titre'),
-          subtitle: text('Sur-titre', 'Petit texte coloré au-dessus du titre'),
-          name: text('Prénom', 'Écrit en police manuscrite'),
-          description: longText('Paragraphe 1'),
-          description_2: longText('Paragraphe 2'),
-          description_3: longText('Paragraphe 3'),
-          description_4: longText('Paragraphe 4'),
-          img: media('Photo'),
-        }),
-        ...seo,
       }),
     }),
 

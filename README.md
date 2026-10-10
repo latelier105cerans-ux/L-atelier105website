@@ -30,3 +30,9 @@ npm run build
 ```
 
 Copier `.env.example` en `.env` et renseigner les clés.
+
+### Dépendance épinglée
+
+`package.json` force `mdast-util-to-markdown` en 2.1.2 (`overrides`) : la 2.2.0 (octobre 2026) fait planter
+la conversion Markdown de Nuxt Studio (récursion infinie sur le gras et l'italique avec `remark-mdc` 3.11),
+donc la publication des pages en blocs. À retirer quand une version corrigée sera disponible.

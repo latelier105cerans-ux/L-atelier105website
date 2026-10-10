@@ -186,9 +186,9 @@
       </div>
     </section>
     <NewsCarousel
-      :title="content.pages.accueil.news.title"
-      :subtitle="content.pages.accueil.news.subtitle"
-      :items="content.pages.accueil.news.items"
+      :title="content.actualites.title"
+      :subtitle="content.actualites.subtitle"
+      :items="content.actualites.items"
     />
   </div>
 </template>
